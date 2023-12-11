@@ -1,0 +1,65 @@
+{
+  "name": "next-translation",
+  "version": "0.1.0",
+  "description": "Next translation - i18n library to work with translations with server and client components",
+  "exports": {
+    "./ClientTranslation": {
+      "default": "./dist/ClientTranslation.js"
+    },
+    "./getTranslation": {
+      "default": "./dist/getTranslation.js"
+    },
+    "./ServerTranslation": {
+      "default": "./dist/ServerTranslation.js"
+    },
+    "./types": {
+      "default": "./dist/types.js"
+    },
+    "./useTranslation": {
+      "default": "./dist/useTranslation.js"
+    },
+    "./WithNextTranlation": {
+      "default": "./dist/WithNextTranlation.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "next",
+    "next.js",
+    "server components",
+    "react.js",
+    "i18n",
+    "internationalization",
+    "localization",
+    "l10n",
+    "intl"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vordgi/next-translation.git"
+  },
+  "author": {
+    "name": "Savelyev Alexander",
+    "email": "vordgi1@gmail.com",
+    "url": "https://github.com/vordgi/"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "16.11.12",
+    "@types/object-path": "0.11.4",
+    "@types/react": "18.2.43",
+    "react": "18.2.0",
+    "typescript": "5.2.2"
+  },
+  "peerDependencies": {
+    "react": ">= 18.2.0"
+  },
+  "dependencies": {
+    "object-path": "0.11.8"
+  }
+}
