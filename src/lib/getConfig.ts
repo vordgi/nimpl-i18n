@@ -1,18 +1,20 @@
 import fs from 'fs';
 import path from 'path';
+import { pathToFileURL } from 'url';
 import { type Config } from '../types';
 
 const CONFIG_PATH = path.join(process.cwd(), 'next-translation.js');
 const configRef = { current: null as Config | null };
+const dynamicImport = new Function('p', 'return import(p)');
 
 const getConfig = async (): Promise<Config> => {
   if (configRef.current) return configRef.current;
 
   try {
     if (fs.existsSync(CONFIG_PATH)) {
-      const config = await import('next-translation.js');
+      const config = await dynamicImport(pathToFileURL(CONFIG_PATH).href);
       configRef.current = config.default;
-      return config;
+      return config.default;
     }
   } catch {
     //
