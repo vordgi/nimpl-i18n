@@ -1,7 +1,7 @@
 {
   "name": "next-translation",
-  "version": "0.1.0",
-  "description": "Next translation - i18n library to work with translations with server and client components",
+  "version": "0.1.1",
+  "description": "Next-translation is the i18n library for working with translations with server and client components",
   "exports": {
     "./ClientTranslation": {
       "default": "./dist/ClientTranslation.js"
@@ -23,7 +23,13 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "ClientTranslation.d.ts",
+    "getTranslation.d.ts",
+    "ServerTranslation.d.ts",
+    "types.d.ts",
+    "useTranslation.d.ts",
+    "WithNextTranlation.d.ts"
   ],
   "scripts": {
     "build": "tsc"
