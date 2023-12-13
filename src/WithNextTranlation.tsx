@@ -1,5 +1,3 @@
-'use server';
-
 import React from 'react';
 import NextTranlationProvider from './NextTranlationProvider';
 import getTranslation from './getTranslation';

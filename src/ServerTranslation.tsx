@@ -1,5 +1,3 @@
-'use server';
-
 import React from 'react';
 import Translation from './lib/Translation';
 import getTranslation from './getTranslation';
