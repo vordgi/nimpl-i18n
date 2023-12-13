@@ -35,9 +35,9 @@ const Translation = ({ term, text, components, query }: TranslationProps): React
           console.warn(`Unknown component for term "${term}" - ${tagName}`);
         }
       } else if (tag.match(/<\/[a-zA-Z0-9]+>/)) {
-        // const lastOpenedIndex = openedTags.findLastIndex((i) => i.tag === tagName);
-        const lastOpenedIndex = openedTags.length - openedTags.findIndex((i) => i.tag === tagName);
-        if (lastOpenedIndex !== -1) {
+        const openedTagIndex = openedTags.findIndex((i) => i.tag === tagName);
+        if (openedTagIndex !== -1) {
+          const lastOpenedIndex = openedTags.length - 1 - openedTagIndex;
           const openedTagsLength = openedTags.length;
           for (let i = openedTagsLength; i > lastOpenedIndex; i--) {
             const targetIndex = i - 1;
