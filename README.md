@@ -50,11 +50,9 @@ I highly recommend using next.js fetch with revalidation configured for better p
 
 `revalidate`. Option works similarly to the next.js option. Setting it to `false` (default) will disable revalidation, meaning the data will be cached indefinitely. Setting it to `0` will request the data each time, while setting it to a `number` will determine the time in seconds for revalidation to occur.
 
-## Usage
+## Base translates
 
-### Base translates
-
-**Server components:**
+### Server components:
 
 Use `getTranslation` in async server components
 ```tsx
@@ -74,7 +72,7 @@ const ServerComponent: React.FC<{ lang: string }> = async ({ lang }) => {
 }
 ```
 
-**Client components:**
+### Client components:
 
 To begin, initialize the Transmitter in the server component, which should be located under the client component.
 ```tsx
@@ -121,11 +119,11 @@ const Component: React.FC = () => {
 }
 ```
 
-### Difficult tranlates
+## Difficult tranlates
 
 To handle difficult translations, you can use the `ServerTranslation` or `ClientTranslation` with components prop. These components would be injected into the translation, whether on the server or the client side.
 
-**Server components:**
+### Server components:
 
 Use `ServerTranslation` in async server components
 ```tsx
@@ -145,7 +143,7 @@ const ServerComponent: React.FC<{ lang: string }> = async ({ lang }) => (
 )
 ```
 
-**Client components:**
+### Client components:
 
 Use `ClientTranslation` in client components
 ```tsx
