@@ -5,6 +5,7 @@ import { type Config } from '../types';
 
 const CONFIG_PATH = path.join(process.cwd(), 'next-translation.js');
 const configRef = { current: null as Config | null };
+// Crutch bypass of conversion by the assembler to require
 const dynamicImport = new Function('p', 'return import(p)');
 
 const getConfig = async (): Promise<Config> => {
@@ -19,7 +20,7 @@ const getConfig = async (): Promise<Config> => {
   } catch {
     //
   }
-  throw new Error('Can\'t load config');
+  throw new Error('Can\'t load config - https://github.com/vordgi/next-translation#configuration');
 };
 
 export default getConfig;

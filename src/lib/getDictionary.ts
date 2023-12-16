@@ -7,7 +7,7 @@ const devCached: { [lang: string]: { loader: Promise<Translates>; ts: number; lo
 const getDictionary = async (lang: string): Promise<Translates> => {
   const config = await getConfig();
   if (!config.loaders[lang]) {
-    throw new Error(`Can't find loader for ${lang}`);
+    throw new Error(`Can't find loader for ${lang} - https://github.com/vordgi/next-translation#configuration`);
   }
   if (typeof config.revalidate === 'number') {
     const targetTs = +new Date();
