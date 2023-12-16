@@ -8,7 +8,7 @@ const useTranslation = (namespace?: string): GetTranslationReturnType => {
   const nextTranslation = useContext(NextTranlationContext);
 
   if (!nextTranslation) {
-    throw new Error('Please, Init WithNextTranslation');
+    throw new Error('Please, Init WithNextTranslation - https://github.com/vordgi/next-translation#client-components');
   }
 
   const { lang, translates } = nextTranslation;
