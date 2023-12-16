@@ -10,10 +10,15 @@ const getTranslation = async (lang: string, namespace?: string): Promise<GetTran
 
   const t: GetTranslationReturnType['t'] = (term, opts) => {
     const translation = op.get(namespaceDictionary, term);
-    if (opts?.query && translation) {
+    const fullKey = `${namespace ? `${namespace}.` : ''}${term}`;
+
+    if (typeof translation !== 'string' || !translation) return fullKey;
+
+    if (opts?.query) {
       return injectQuery(term, translation, opts.query);
     }
-    return translation || `${namespace ? `${namespace}.` : ''}${term}`;
+
+    return translation;
   };
 
   return { t, lang };
