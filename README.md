@@ -106,6 +106,8 @@ const ClientComponent: React.FC = () => {
 }
 ```
 
+### Options
+
 Both of them agree to use `opts` as the second argument of `t`. Now you can pass a query there to inject variable strings inside translations.
 
 ```tsx
@@ -117,6 +119,23 @@ const Component: React.FC = () => {
         </div>
     )
 }
+```
+
+Also you can inject query to client terms on the server side. For example, when they depend on the server environment or when you get values ​​from a database on the server.
+
+Just add an array value instead of a string in terms arr, where the second element will be the query object.
+
+```tsx
+"use server";
+
+import WithNextTranslation from 'next-tranlation/WithNextTranslation';
+import ClientComponent from './ClientComponent';
+
+const ServerComponent: React.FC<{ lang: string }> = ({ lang }) => (
+    <WithNextTranslation lang={lang} terms={[['home.welcome', { stage: process.env.GITHUB_REF === 'main' ? 'production' : 'test' }]]}>
+        <ClientComponent />
+    </WithNextTranslation>
+)
 ```
 
 ## Difficult tranlates
