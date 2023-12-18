@@ -181,6 +181,43 @@ const ClientComponent: React.FC = async () => (
 )
 ```
 
+## App organization
+
+### Pages structure
+
+```
+app
+    [lang]
+        page-name
+            page.tsx
+        page.tsx
+        layout.tsx
+    (root)
+        page-name
+            page.tsx
+        page.tsx
+        layout.tsx
+```
+
+**Why so?**
+
+You can only create one root layout. In the root (`/app`) we don't know the language, so we can't add a `lang` attribute there on the server side.
+
+Therefore, the only way to do it is to create a root layout for localized pages in the `[lang]` folder.
+
+```tsx
+// /app/[lang]/layout.tsx
+type RootLayoutProps = { children: React.ReactNode; params: { lang: string } }
+
+export default function RootLayout({ children, params }: RootLayoutProps) {
+  return (
+    <html lang={params.lang}>
+      <body>{children}</body>
+    </html>
+  )
+}
+```
+
 ## License
 
 [MIT](https://github.com/vordgi/next-translation/blob/main/LICENSE)
