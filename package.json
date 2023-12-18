@@ -20,6 +20,9 @@
     },
     "./WithNextTranlation": {
       "default": "./dist/WithNextTranlation.js"
+    },
+    "./lib/parseEntities": {
+      "default": "./dist/lib/parseEntities.js"
     }
   },
   "files": [
@@ -66,6 +69,7 @@
     "react": ">= 18.2.0"
   },
   "dependencies": {
+    "html-entities": "2.4.0",
     "object-path": "0.11.8"
   }
 }
