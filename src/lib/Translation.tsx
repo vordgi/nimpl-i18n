@@ -1,20 +1,17 @@
 /* eslint-disable no-console, react/no-array-index-key */
 import React from 'react';
-import injectQuery, { type Query } from './injectQuery';
 
 type TranslationProps = {
   term: string;
   text: string;
   components?: { [key: string]: JSX.Element };
-  query?: Query;
 };
 
-const Translation = ({ term, text, components, query }: TranslationProps): React.ReactNode[] => {
-  const parsedText = query ? injectQuery(term, text, query) : text;
-  const parts: JSX.Element[] = parsedText.split(/<\/?[a-zA-Z0-9]+>|<[a-zA-Z0-9]+ ?\/>/gm).map((el, i) => <React.Fragment key={`p-${i}`}>{el}</React.Fragment>);
+const Translation = ({ term, text, components }: TranslationProps): React.ReactNode[] => {
+  const parts: JSX.Element[] = text.split(/<\/?[a-zA-Z0-9]+>|<[a-zA-Z0-9]+ ?\/>/gm).map((el, i) => <React.Fragment key={`p-${i}`}>{el}</React.Fragment>);
 
   if (components) {
-    const tags = parsedText.match(/<\/?[a-zA-Z0-9]+>|<[a-zA-Z0-9]+ ?\/>/gm);
+    const tags = text.match(/<\/?[a-zA-Z0-9]+>|<[a-zA-Z0-9]+ ?\/>/gm);
     const openedTags: { tag: string; position: number }[] = [];
     tags?.forEach((tag, tagIndex) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
