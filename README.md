@@ -25,30 +25,35 @@ yarn add next-translation
 Create config file
 
 ```js
-const load = async (lang) => {
-  const resp = await fetch(`https://api.translate-example.com/terms/${lang}`, {
-    method: 'POST',
-  });
-  const data = await resp.json();
-  return data;
-};
+class LoaderProvider {
+    async load(lang): {
+        const resp = await fetch(`https://api.translation-example.com/terms/${lang}`, {
+            method: 'POST',
+        });
+        const data = await resp.json();
+        return data;
+    }
+}
 
 /** @type {import('next-translation/types').Config} */
 module.exports = {
-  loaders: {
-    ru: () => load('ru'),
-    en: () => load('en'),
-  },
-  revalidate: 10,
+  loaderProvider: new LoaderProvider(),
 };
 ```
 
-`loaders` - loaders for each language should return data in the following structure:
+### Config options
 
-`type Translates = { [key: string]: Translates | string }`
-I highly recommend using next.js fetch with revalidation configured for better performance with ISR mode. However, if it's not possible (e.g., when loading data with a POST request or if the response size is larger than 2MB), you can use the `revalidate` option in next-translation to optimize requests.
+`loaderProvider` - class with load method, which will load data and return it in the next format:
 
-`revalidate`. Option works similarly to the next.js option. Setting it to `false` (default) will disable revalidation, meaning the data will be cached indefinitely. Setting it to `0` will request the data each time, while setting it to a `number` will determine the time in seconds for revalidation to occur.
+`type ReturnType = { data: { [key: string]: Translates | string }, meta: { [key: string]: string } }`
+
+method load will receive 2 arguments:
+
+key - current language
+
+meta - meta data from previous request. recieved only with enabled advanced mode
+
+`unstable_advancedLoader` - option to load data custom caching instead of next.js fetch [Read more](#advanced-loader)
 
 ## Base translates
 
@@ -179,6 +184,48 @@ const ClientComponent: React.FC = async () => (
         query={{ number: 5 }}
     />
 )
+```
+
+## Advanced loader
+
+I highly recommend using next.js fetch with revalidation configured for better performance with ISR mode. However, if it's not possible (_e.g., when loading data with a POST request or if the response size is larger than 2MB_), you can use the `revalidate` option in next-translation to optimize requests.
+
+### Options
+
+### Revalidate
+`revalidate`. Option works similarly to the next.js option. Setting it to `false` (_default_) will disable revalidation, meaning the data will be cached indefinitely. Setting it to `0` will request the data each time, while setting it to a `number` will determine the time in seconds for revalidation to occur.
+
+### retryAttempts
+`retryAttempts` - number of retries when loading data (_3 by default_)
+
+### checkIsActual
+`checkIsActual` - сheck that the data is up to date. Use it when you can perform additional steps to ensure that cached data is up to date. For example, make a HEAD request with meta information, or check the meta on a different route. Option type:
+
+`(key: string, meta?: { [key: string]: string }) => Promise<boolean>`
+
+where:
+
+`key` - target language
+
+`meta` - meta information returned from the [loaderProvider](#config-options) load method
+
+### cacheHandler
+`cacheHandler` - custom cache handler (_Heap Space by default_). Should be a class with asynchronous methods: get, set, has.
+
+```ts
+class CacheHandler {
+    async get<T>(key: string): Promise<T> {
+
+    }
+
+    async set(key: string, data: unknown): Promise<void> {
+
+    }
+
+    async has(key: string): Promise<boolean> {
+
+    }
+}
 ```
 
 ## App organization
