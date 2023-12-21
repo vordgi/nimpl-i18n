@@ -1,8 +1,10 @@
+import { type LoaderProvider, type AdvancedLoader } from "./lib/DataLoader";
+
 export type Translates = { [key: string]: Translates | string };
 
 export type Config = {
-  loaders: { [lang: string]: () => Promise<Translates> };
-  revalidate: number | false;
+  loaderProvider: LoaderProvider;
+  unstable_advancedLoader: AdvancedLoader;
 };
 
 export type Query = { [key: string]: string | number };
