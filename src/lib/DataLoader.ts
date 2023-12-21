@@ -77,6 +77,7 @@ class LoaderHandler {
                 ...prevMeta,
                 isRevalidated: true,
             });
+            await this.load(key);
         }
     }
 
