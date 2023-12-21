@@ -192,7 +192,11 @@ const ClientComponent: React.FC = async () => (
 
 ## Advanced loader
 
-I highly recommend using next.js fetch with revalidation configured for better performance with ISR mode. However, if it's not possible (_e.g., when loading data with a POST request or if the response size is larger than 2MB_), you can use the `revalidate` option in next-translation to optimize requests.
+I highly recommend using next.js fetch with revalidation configured for better performance with ISR mode. However, if it's not possible (_e.g., when loading data with a POST request or if the response size is larger than 2MB_), you can use the `unstable_advancedLoader` option in next-translation to optimize requests.
+
+It is important to use one of the caching systems (_next.js fetch logic only or the next-translation advanced loader_) because on the server we are always looking for the data source every time we use the next-translation tools.
+
+Don't combine next.js fetch caching with the next-translation advanced loader, it will repeat the logic and may not work correctly.
 
 ### Options
 
