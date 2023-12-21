@@ -41,7 +41,9 @@ module.exports = {
 };
 ```
 
-### Config options
+## Config options
+
+### loaderProvider
 
 `loaderProvider` - class with load method, which will load data and return it in the next format:
 
@@ -49,9 +51,11 @@ module.exports = {
 
 method load will receive 2 arguments:
 
-key - current language
+`key` - current language
 
-meta - meta data from previous request. recieved only with enabled advanced mode
+`meta` - meta data from previous request. recieved only with enabled advanced mode
+
+### unstable_advancedLoader
 
 `unstable_advancedLoader` - option to load data custom caching instead of next.js fetch [Read more](#advanced-loader)
 
