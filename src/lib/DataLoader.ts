@@ -171,7 +171,7 @@ export type AdvancedLoader = {
     revalidate: number | false;
     cacheHandler?: CacheHandler;
     retryAttempts?: number;
-    checkIsActual?: (key: string) => Promise<boolean>;
+    checkIsActual?: CheckIsActual;
 }
 
 type DataLoaderOptions = {
