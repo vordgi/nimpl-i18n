@@ -4,7 +4,7 @@ import { pathToFileURL } from 'url';
 import { type Config } from '../types';
 import DataLoader from './DataLoader';
 
-type ModifiedConfig = { dataLoader: DataLoader }
+type ModifiedConfig = { dataLoader: DataLoader, getLang?: Config['getLang'] }
 
 const CONFIG_PATH = path.join(process.cwd(), 'next-translation.js');
 const configRef = { current: null as ModifiedConfig | null };
@@ -17,14 +17,15 @@ const getConfig = async (): Promise<ModifiedConfig> => {
   try {
     if (fs.existsSync(CONFIG_PATH)) {
       const config: { default: Config } = await dynamicImport(pathToFileURL(CONFIG_PATH).href);
-      const { loaderProvider, unstable_advancedLoader } = config.default;
+      const { loaderProvider, unstable_advancedLoader, getLang } = config.default;
 
       if (!loaderProvider) {
         throw new Error(`Can't find loaderProvider - https://github.com/vordgi/next-translation#configuration`);
       }
 
       configRef.current = {
-        dataLoader: new DataLoader({ loaderProvider, unstable_advancedLoader })
+        dataLoader: new DataLoader({ loaderProvider, unstable_advancedLoader }),
+        getLang
       };
       return configRef.current;
     }

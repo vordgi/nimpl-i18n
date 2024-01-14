@@ -70,6 +70,7 @@
   },
   "dependencies": {
     "html-entities": "2.4.0",
+    "next-impl-getters": "0.2.0",
     "object-path": "0.11.8"
   }
 }

@@ -2,8 +2,11 @@ import { type LoaderProvider, type AdvancedLoader } from "./lib/DataLoader";
 
 export type Translates = { [key: string]: Translates | string };
 
+export type GetLangOpts = { pathname: string | null, params: {[key: string]: string | string[]} }
+
 export type Config = {
   loaderProvider: LoaderProvider;
+  getLang: (opts: GetLangOpts) => string;
   unstable_advancedLoader: AdvancedLoader;
 };
 
