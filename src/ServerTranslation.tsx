@@ -7,8 +7,8 @@ type ServerTranslationProps = {
   lang: string;
   term: string;
   components?: { [key: string]: JSX.Element };
-  query: ServerTOptions['query'];
-  parseEntities: ServerTOptions['parseEntities'];
+  query?: ServerTOptions['query'];
+  parseEntities?: ServerTOptions['parseEntities'];
 };
 
 const ServerTranslation: React.FC<ServerTranslationProps> = async ({ lang, term, components, query, parseEntities }) => {
