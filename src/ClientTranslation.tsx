@@ -8,8 +8,8 @@ import useTranslation from './useTranslation';
 type ClientTranslationProps = {
   term: string;
   components?: { [key: string]: JSX.Element };
-  query: ClientTOptions['query'];
-  removeUnusedQueries: ClientTOptions['removeUnusedQueries'];
+  query?: ClientTOptions['query'];
+  removeUnusedQueries?: ClientTOptions['removeUnusedQueries'];
 };
 
 const ClientTranslation: React.FC<ClientTranslationProps> = ({ term, components, query, removeUnusedQueries }) => {
