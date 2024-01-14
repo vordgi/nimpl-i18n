@@ -1,17 +1,18 @@
 import React from 'react';
 import op from 'object-path';
-import { type ServerTOptions } from './types';
+import { type ServerTOptions, type Translates } from './types';
 import NextTranlationProvider from './NextTranlationProvider';
-import getDictionary from './lib/getDictionary';
 import formatServerTranslate from './lib/formatServerTranslate';
+import getConfig from './lib/getConfig';
+import { getParams } from 'next-impl-getters/get-params';
+import { getPathname } from 'next-impl-getters/get-pathname';
+import { getSearchParams } from 'next-impl-getters/get-search-params';
 
 type WithNextTranlationProps = {
   terms: (string | [string, ServerTOptions])[];
-  lang: string;
+  lang?: string;
   children: React.ReactNode;
 };
-
-type Translates = string | { [key: string]: Translates };
 
 type ClientTranslates = { [key: string]: string };
 
@@ -29,7 +30,20 @@ const formatServerTranslates = (ref: ClientTranslates, targetKey: string, transl
 };
 
 const WithNextTranlation: React.FC<WithNextTranlationProps> = async ({ terms, children, lang }) => {
-  const dictionary = await getDictionary(lang);
+  const config = await getConfig();
+  let targetLang = lang;
+
+  if (!targetLang) {
+    if (config.getLang) {
+      const params = getParams();
+      const pathname = getPathname();
+      targetLang = config.getLang({ params, pathname });
+    } else {
+      throw new Error('The language cannot be determined. Please pass the language as prop or add the getLang function to the config file.');
+    }
+  }
+
+  const dictionary = await config.dataLoader.load<Translates>(targetLang);
 
   const ref: { [key: string]: string } = {};
   terms.forEach((term) => {
@@ -44,7 +58,7 @@ const WithNextTranlation: React.FC<WithNextTranlationProps> = async ({ terms, ch
   });
 
   return (
-    <NextTranlationProvider lang={lang} translates={ref}>
+    <NextTranlationProvider lang={targetLang} translates={ref}>
       {children}
     </NextTranlationProvider>
   );
