@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/next-translation.svg)](https://badge.fury.io/js/next-translation)
 
-Next Translation is an internationalization library for React.js with an enabled server component (especially for Next.js App Router).
+Next Translation is an internationalization library for Next.js App Router.
 
 ## Why one more library?
 Server components are an experimental feature of React, and currently translation libraries are poorly optimized for them. If supported, disable Next.js static optimization.
@@ -38,6 +38,7 @@ class LoaderProvider {
 /** @type {import('next-translation/types').Config} */
 module.exports = {
   loaderProvider: new LoaderProvider(),
+  getLang: ({ params }) => params.locale.substring(0, 2) || 'en',
 };
 ```
 
@@ -58,6 +59,10 @@ method load will receive 2 arguments:
 ### unstable_advancedLoader
 
 `unstable_advancedLoader` - option to load data custom caching instead of next.js fetch [Read more](#advanced-loader)
+
+### getLang
+
+`getLang` - function to get the language of the current page. As an argument, it passes an object with the keys `pathname` - the pathname of the current page and `params` - page parameters
 
 ## Base translates
 
