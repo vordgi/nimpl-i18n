@@ -1,33 +1,27 @@
 import fs from 'fs';
 import path from 'path';
 import { pathToFileURL } from 'url';
-import { type Config } from '../types';
-import DataLoader from './DataLoader';
-
-type ModifiedConfig = { dataLoader: DataLoader, getLang?: Config['getLang'] }
+import { type Config } from './types';
 
 const CONFIG_PATH = path.join(process.cwd(), 'next-translation.js');
-const configRef = { current: null as ModifiedConfig | null };
 // Crutch bypass of conversion by the assembler to require
 const dynamicImport = new Function('p', 'return import(p)');
 
-const getConfig = async (): Promise<ModifiedConfig> => {
-  if (configRef.current) return configRef.current;
-
+const getConfig = async (): Promise<Config> => {
   try {
     if (fs.existsSync(CONFIG_PATH)) {
       const config: { default: Config } = await dynamicImport(pathToFileURL(CONFIG_PATH).href);
-      const { loaderProvider, unstable_advancedLoader, getLang } = config.default;
+      const { load, languages } = config.default;
 
-      if (!loaderProvider) {
+      if (!load) {
         throw new Error(`Can't find loaderProvider - https://github.com/vordgi/next-translation#configuration`);
       }
 
-      configRef.current = {
-        dataLoader: new DataLoader({ loaderProvider, unstable_advancedLoader }),
-        getLang
-      };
-      return configRef.current;
+      if (!languages) {
+        throw new Error(`Can't find loaderProvider - https://github.com/vordgi/next-translation#configuration`);
+      }
+
+      return config.default;
     }
   } catch {
     //

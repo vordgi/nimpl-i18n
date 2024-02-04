@@ -1,19 +1,18 @@
 import React from 'react';
-import { type ServerTOptions } from './types';
+import { type NextTranslationOptions } from './types';
 import Translation from './lib/Translation';
 import getTranslation from './getTranslation';
 
 type ServerTranslationProps = {
   term: string;
-  lang?: string;
   components?: { [key: string]: JSX.Element };
-  query?: ServerTOptions['query'];
-  parseEntities?: ServerTOptions['parseEntities'];
+  query?: NextTranslationOptions['query'];
+  removeUnusedQueries?: NextTranslationOptions['removeUnusedQueries'];
 };
 
-const ServerTranslation: React.FC<ServerTranslationProps> = async ({ term, lang, components, query, parseEntities }) => {
-  const { t } = await getTranslation(lang);
-  const text = t(term, { query, parseEntities, removeUnusedQueries: false });
+const ServerTranslation: React.FC<ServerTranslationProps> = ({ term, components, query, removeUnusedQueries }) => {
+  const { t } = getTranslation();
+  const text = t(term, { query, removeUnusedQueries });
 
   return (
     <Translation term={term} text={text} components={components} />

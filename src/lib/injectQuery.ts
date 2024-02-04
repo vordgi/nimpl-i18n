@@ -6,17 +6,12 @@ export type InjectQueryArg = {
   text: string;
   query: Query;
   removeUnusedQueries?: boolean;
-  isTransmitter?: boolean;
 }
 
-const injectQuery = ({ term, text, query, removeUnusedQueries, isTransmitter }: InjectQueryArg): string => {
+const injectQuery = ({ text, query, removeUnusedQueries }: InjectQueryArg): string => {
   const newText = text.replace(/{{([a-zA-Z0-9_-]+)}}/gm, (matched, g1) => {
     if (query[g1]) {
       return query[g1].toString();
-    }
-
-    if (!isTransmitter) {
-      console.warn(`Unknown query for term "${term}" - ${matched}`);
     }
 
     if (removeUnusedQueries) {
