@@ -1,28 +1,28 @@
 import createCacheServer from './configuration/createCacheServer';
 
 const PORT = '24';
-let isInited = Boolean(process.env.NEXT_TRANSLATION_CACHE_PORT && process.env.NEXT_TRANSLATION_CACHE_SECRET);
+let cacheSecret = process.env.NEXT_TRANSLATION_CACHE_SECRET;
 
 const withNextTranslation = async (phase: string) => {
-    if (!isInited && process.env.NODE_ENV === 'development') {
+    if (!cacheSecret && process.env.NODE_ENV === 'development') {
         try {
             const devResp = await fetch(`http://localhost:${PORT}/?type=dev`);
             const data = await devResp.json();
             if (data) {
-                isInited = true;
-                process.env.NEXT_TRANSLATION_CACHE_PORT = PORT;
-                process.env.NEXT_TRANSLATION_CACHE_SECRET = data.secret;
+                cacheSecret = data.secret;
             }
         } catch {
             //
         }
     }
 
-    if ((phase === 'phase-development-server' || phase === 'phase-production-server') && !isInited) {
+    if ((phase === 'phase-development-server' || phase === 'phase-production-server') && !cacheSecret) {
         const { secret } = await createCacheServer(PORT);
-        process.env.NEXT_TRANSLATION_CACHE_PORT = PORT;
-        process.env.NEXT_TRANSLATION_CACHE_SECRET = secret;
+        cacheSecret = secret;
     }
+
+    process.env.NEXT_TRANSLATION_CACHE_PORT = PORT;
+    if (cacheSecret) process.env.NEXT_TRANSLATION_CACHE_SECRET = cacheSecret;
 
     return (nextConfig: any) => nextConfig;
 }
