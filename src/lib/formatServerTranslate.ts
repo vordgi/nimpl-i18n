@@ -6,10 +6,10 @@ interface FormatServerTranslateArg extends Omit<InjectQueryArg, 'query'> {
     query?: InjectQueryArg['query'];
 }
 
-const formatServerTranslate = ({ term, text, removeUnusedQueries, query, parseEntities, isTransmitter }: FormatServerTranslateArg) => {
+const formatServerTranslate = ({ term, text, removeUnusedQueries, query, parseEntities }: FormatServerTranslateArg) => {
     let newTranslate = text;
     if (query) {
-        newTranslate = injectQuery({ term, text: newTranslate, query, removeUnusedQueries, isTransmitter });
+        newTranslate = injectQuery({ term, text: newTranslate, query, removeUnusedQueries });
     }
     if (parseEntities === undefined || parseEntities === true) {
         newTranslate = decode(newTranslate, { scope: 'strict' });

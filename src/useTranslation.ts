@@ -1,21 +1,26 @@
 import { useContext } from 'react';
-import { type ClientTOptions } from './types';
-import { NextTranlationContext } from './NextTranlationContext';
+import { type NextTranslationOptions } from './types';
+import { ClientNextTranlationContext } from './lib/ClientNextTranlationContext';
 import injectQuery from './lib/injectQuery';
 
-type GetTranslationReturnType = { t: (term: string, opts?: ClientTOptions) => string; lang: string };
+type GetTranslationReturnType = { t: (term: string, opts?: NextTranslationOptions) => string; lang: string };
 
 const useTranslation = (namespace?: string): GetTranslationReturnType => {
-  const nextTranslation = useContext(NextTranlationContext);
+  const context = useContext(ClientNextTranlationContext);
 
-  if (!nextTranslation) {
-    throw new Error('Please, Init WithNextTranslation - https://github.com/vordgi/next-translation#client-components');
+  if (!context) {
+    throw new Error('Please, Init NextTranlationTransmitter for client components - https://github.com/vordgi/next-translation#client-components');
   }
 
-  const { lang, translates } = nextTranslation;
+  const { lang, translates } = context;
 
   const t: GetTranslationReturnType['t'] = (term, opts) => {
-    const termKey = `${namespace ? `${namespace}.` : ''}${term}`;
+    let termKey: string;
+    if (term.includes(':')) {
+      termKey = term.replace(':', '.');
+    } else {
+      termKey = `${namespace ? `${namespace}.` : ''}${term}`;
+    }
     const translation = translates[termKey];
 
     if (!translation) return termKey;
