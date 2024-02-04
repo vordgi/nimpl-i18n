@@ -1,81 +1,72 @@
-# Next Translation
+# next-translation
 
 [![npm version](https://badge.fury.io/js/next-translation.svg)](https://badge.fury.io/js/next-translation)
 
 Next Translation is an internationalization library for Next.js App Router.
 
 ## Why one more library?
-Server components are an experimental feature of React, and currently translation libraries are poorly optimized for them. If supported, disable Next.js static optimization.
 
-This library is an attempt to create a highly optimized solution exclusively using the current capabilities of React and Next.js.
+Server components are a recent feature in React. Existing translation libraries are not yet well-optimized for them. If they support it, then only by disabling Next.js static optimization.
+
+This library is an attempt to create a highly optimized solution exclusively using the current capabilities of React.js, Next.js and node.js.
+
+## Features
+
+Support for loading translations during page rendering (*instead of the application build step*), allowing for up-to-date translations with ISR or SSR;
+
+Support for revalidation logic, i.e. you can specify how often translations should be updated (*or that they should not be updated at all*);
+
+Optimized caching system - not a single extra request will be sent, even with parallel building (which is now enabled by default);
+
+Passing only those translations to the client that are needed on the client;
+
+Embedding parameters in client translations on the server;
+
+Support for html entities.
 
 ## Installation
 
 **Using npm:**
+
 ```bash
 npm i next-translation
 ```
 
 **Using yarn:**
+
 ```bash
 yarn add next-translation
 ```
 
-## Configuration
-Create config file
+## Usage
 
-```js
-class LoaderProvider {
-    async load(lang): {
-        const resp = await fetch(`https://api.translation-example.com/terms/${lang}`, {
-            method: 'POST',
-        });
-        const data = await resp.json();
-        return data;
-    }
+### NextTranslationProvider
+
+It is recommended to use the configuring provider at the page level.
+
+```tsx
+import NextTranlationProvider from 'next-translation/NextTranlationProvider'
+
+export default function HomePage({ params }: { params: { lang: string } }) {
+    return (
+        <NextTranlationProvider lang={params.lang} clientTerms={['shared', 'banking.about']}>
+            {/* ... */}
+        </NextTranlationProvider>
+    )
 }
-
-/** @type {import('next-translation/types').Config} */
-module.exports = {
-  loaderProvider: new LoaderProvider(),
-  getLang: ({ params }) => params.locale.substring(0, 2) || 'en',
-};
 ```
 
-## Config options
+*Note: Layout lives independently, so it needs to be wrapped in* `NextTranslationProvider` *separately.*
 
-### loaderProvider
+### Server components
 
-`loaderProvider` - class with load method, which will load data and return it in the next format:
+Use `getTranslation` for simple translations
 
-`type ReturnType = { data: { [key: string]: Translates | string }, meta: { [key: string]: string } }`
-
-method load will receive 2 arguments:
-
-`key` - current language
-
-`meta` - meta data from previous request. recieved only with enabled advanced mode
-
-### unstable_advancedLoader
-
-`unstable_advancedLoader` - option to load data custom caching instead of next.js fetch [Read more](#advanced-loader)
-
-### getLang
-
-`getLang` - function to get the language of the current page. As an argument, it passes an object with the keys `pathname` - the pathname of the current page and `params` - page parameters
-
-## Base translates
-
-### Server components:
-
-Use `getTranslation` in async server components
 ```tsx
-"use server";
-
 import getTranslation from 'next-tranlation/getTranslation';
 
-const ServerComponent: React.FC<{ lang: string }> = async ({ lang }) => {
-    const { t } = await getTranslation(lang);
+const ServerComponent: React.FC = () => {
+    const { t } = getTranslation();
 
     return (
         <div>
@@ -86,23 +77,39 @@ const ServerComponent: React.FC<{ lang: string }> = async ({ lang }) => {
 }
 ```
 
-### Client components:
+Use `ServerTranslation` to get complex translations
 
-To begin, initialize the Transmitter in the server component, which should be located under the client component.
 ```tsx
-"use server";
+import ServerTranslation from 'next-tranlation/ServerTranslation';
 
-import WithNextTranslation from 'next-tranlation/WithNextTranslation';
-import ClientComponent from './ClientComponent';
-
-const ServerComponent: React.FC<{ lang: string }> = ({ lang }) => (
-    <WithNextTranslation lang={lang} terms={['header.nav']}>
-        <ClientComponent />
-    </WithNextTranslation>
+const ServerComponent: React.FC = () => (
+    <ServerTranslation
+        term='intro.description' // We have {{number}} tariffs. Read more about pricings <link>special section</link>
+        components={{
+            link: <a href='#' />
+        }}
+        query={{ number: 5 }}
+    />
 )
 ```
 
-Then you can use `useTranslation` in client components
+### Client components
+
+The translations specified in `NextTranslationProvider` are passed to the client, but you can specify additional translations in any parent server component using `NextTranslationTransmitter`.
+
+```tsx
+import NextTranslationTransmitter from 'next-tranlation/NextTranslationTransmitter';
+import ClientComponent from './ClientComponent';
+
+const ServerComponent: React.FC = () => (
+    <NextTranslationTransmitter terms={['header.nav']}>
+        <ClientComponent />
+    </NextTranslationTransmitter>
+)
+```
+
+Use `useTranslation` for simple translations
+
 ```tsx
 "use client";
 
@@ -120,9 +127,44 @@ const ClientComponent: React.FC = () => {
 }
 ```
 
+Use `ClientTranslation` for complex translations
+
+```tsx
+"use client";
+
+import ClientTranslation from 'next-tranlation/ClientTranslation';
+
+const ClientComponent: React.FC = () => (
+    <ClientTranslation
+        term='intro.description' // We have {{number}} tariffs. Read more about pricings <link>special section</link>
+        components={{
+            link: <a href='#' />
+        }}
+        query={{ number: 5 }}
+    />
+)
+```
+
+### Other
+
+Use `createTranslation` to get a simple translation outside the page tree.
+
+```tsx
+import createTranslation from 'next-translation/createTranslation'
+// ...
+export async function generateMetadata({ params }: { params: { lang: string } }) {
+    const { t } = await createTranslation(params.lang);
+    return {
+        title: t('homePage.meta.title'),
+    }
+}
+```
+
 ### Options
 
-Both of them agree to use `opts` as the second argument of `t`. Now you can pass a query there to inject variable strings inside translations.
+You can pass `opts` as the second argument of `t`.
+
+Now you can pass a query there to inject variable strings inside translations.
 
 ```tsx
 const Component: React.FC = () => {
@@ -135,111 +177,107 @@ const Component: React.FC = () => {
 }
 ```
 
-Also you can inject query to client terms on the server side. For example, when they depend on the server environment or when you get values ​​from a database on the server.
+Also you can inject query to client terms on the server side. For example, when they depend on the server environment or when you get values from a database on the server.
 
 Just add an array value instead of a string in terms arr, where the second element will be the query object.
 
 ```tsx
-"use server";
-
-import WithNextTranslation from 'next-tranlation/WithNextTranslation';
+import NextTranslationTransmitter from 'next-tranlation/NextTranslationTransmitter';
 import ClientComponent from './ClientComponent';
 
-const ServerComponent: React.FC<{ lang: string }> = ({ lang }) => (
-    <WithNextTranslation lang={lang} terms={[['home.welcome', { stage: process.env.GITHUB_REF === 'main' ? 'production' : 'test' }]]}>
+const ServerComponent: React.FC = () => (
+    <NextTranslationTransmitter terms={[['home.welcome', { stage: process.env.GITHUB_REF === 'main' ? 'production' : 'test' }]]}>
         <ClientComponent />
-    </WithNextTranslation>
+    </NextTranslationTransmitter>
 )
 ```
 
-## Difficult tranlates
+## Configuration
 
-To handle difficult translations, you can use the `ServerTranslation` or `ClientTranslation` with components prop. These components would be injected into the translation, whether on the server or the client side.
+### Config file
 
-### Server components:
+Create `next-translation.js` file in the root directory
 
-Use `ServerTranslation` in async server components
-```tsx
-"use server";
-
-import ServerTranslation from 'next-tranlation/ServerTranslation';
-
-const ServerComponent: React.FC<{ lang: string }> = async ({ lang }) => (
-    <ServerTranslation
-        lang={lang}
-        term='intro.description' // We have {{number}} tariffs. Read more about pricings <link>special section</link>
-        components={{
-            link: <a href='#' />
-        }}
-        query={{ number: 5 }}
-    />
-)
+```jsx
+/** @type {import('next-translation/configuration/types').Config} */
+module.exports = {
+    load: async (lang) => {
+        const resp = await fetch(`https://api.translation-example.com/terms/${lang}`, {
+            method: 'POST',
+        });
+        const data = await resp.json();
+        return { data, meta: {} };
+    },
+    languages: ['en', 'de', 'fr'],
+    revalidate: 3600,
+    checkIsActual: async (lang, lastLoadMeta) => {
+        // ...
+    },
+    retryAttempts: 2,
+};
 ```
-
-### Client components:
-
-Use `ClientTranslation` in client components
-```tsx
-"use client";
-
-import ClientTranslation from 'next-tranlation/ClientTranslation';
-
-const ClientComponent: React.FC = async () => (
-    <ClientTranslation
-        term='intro.description' // We have {{number}} tariffs. Read more about pricings <link>special section</link>
-        components={{
-            link: <a href='#' />
-        }}
-        query={{ number: 5 }}
-    />
-)
-```
-
-## Advanced loader
-
-I highly recommend using next.js fetch with revalidation configured for better performance with ISR mode. However, if it's not possible (_e.g., when loading data with a POST request or if the response size is larger than 2MB_), you can use the `unstable_advancedLoader` option in next-translation to optimize requests.
-
-It is important to use one of the caching systems (_next.js fetch logic only or the next-translation advanced loader_) because on the server we are always looking for the data source every time we use the next-translation tools.
-
-Don't combine next.js fetch caching with the next-translation advanced loader, it will repeat the logic and may not work correctly.
 
 ### Options
 
-### Revalidate
-`revalidate`. Option works similarly to the next.js option. Setting it to `false` (_default_) will disable revalidation, meaning the data will be cached indefinitely. Setting it to `0` will request the data each time, while setting it to a `number` will determine the time in seconds for revalidation to occur.
+**load [required]**
 
-### retryAttempts
-`retryAttempts` - number of retries when loading data (_3 by default_)
+Asynchronous function for translates loading
 
-### checkIsActual
-`checkIsActual` - сheck that the data is up to date. Use it when you can perform additional steps to ensure that cached data is up to date. For example, make a HEAD request with meta information, or check the meta on a different route. Option type:
+Function will receive 2 arguments:
+
+`key` - current language;
+
+`meta` - meta data from previous request.
+
+Function should return object with keys:
+
+`data` - object with translates;
+
+`meta` - object with additional data which will be passed to the next load.
+
+*Don't combine next.js fetch caching with the next-translation load caching, it will repeat the logic and may not work correctly.*
+
+**languages [required]**
+
+Array of allowed languages. Languages outside of this array will be ignored.
+
+**revalidate [optional]**
+
+Option works similarly to the next.js option. Setting it to `false` will disable revalidation, meaning the data will be cached indefinitely. Setting it to `0` will request the data each time, while setting it to a `number` will determine the time in seconds for revalidation to occur.
+
+**retryAttempts [optional]**
+
+Number of retries when loading data (*3 by default*)
+
+**checkIsActual [optional]**
+
+Check that the data is up to date. Use it when you can perform additional steps to ensure that cached data is up to date. For example, make a HEAD request with meta information, or check the meta on a different route. Option type:
 
 `(key: string, meta?: { [key: string]: string }) => Promise<boolean>`
 
 where:
 
-`key` - target language
+`key` - target language
 
-`meta` - meta information returned from the [loaderProvider](#config-options) load method
+`meta` - meta information returned from the load function
 
-### cacheHandler
-`cacheHandler` - custom cache handler (_Heap Space by default_). Should be a class with asynchronous methods: get, set, has.
+### Configure app
 
-```ts
-class CacheHandler {
-    async get<T>(key: string): Promise<T> {
+You also need to configure the environment for correct caching to work, for this you need to wrap your `next.config.js` in `withNextTranslation`
 
-    }
+```js
+const withNextTranslation = require('next-translation/withNextTranslation').default;
 
-    async set(key: string, data: unknown): Promise<void> {
+/** @type {import('next').NextConfig} */
+const nextConfig = {};
 
-    }
-
-    async has(key: string): Promise<boolean> {
-
-    }
+module.exports = async (phase) => {
+    const withTranslation = await withNextTranslation(phase);
+    return withTranslation(nextConfig);
 }
 ```
+
+*Note: the library does not modify the webpack or application configuration, it only configures the process.*
 
 ## App organization
 
@@ -259,11 +297,11 @@ app
         layout.tsx
 ```
 
-**Why so?**
+### Why so?
 
-You can only create one root layout. In the root (`/app`) we don't know the language, so we can't add a `lang` attribute there on the server side.
+You can only create one root layout. In the root (`/app`) we don't know the language, so we can't add a `lang` attribute there on the server side.
 
-Therefore, the only way to do it is to create a root layout for localized pages in the `[lang]` folder.
+Therefore, the only way to do it is to create a root layout for localized pages in the `[lang]` folder.
 
 ```tsx
 // /app/[lang]/layout.tsx
@@ -276,7 +314,12 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
     </html>
   )
 }
+
 ```
+
+## Additionally
+
+Create tasks with wishes, ideas, difficulties, etc. All of them will definitely be considered and thought over.
 
 ## License
 
