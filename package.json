@@ -1,6 +1,6 @@
 {
   "name": "next-translation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Next-translation is the i18n library for working with translations in server and client components",
   "exports": {
     "./ClientTranslation": {
