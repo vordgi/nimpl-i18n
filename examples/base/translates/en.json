@@ -1,0 +1,45 @@
+{
+  "selectLocale": {
+    "title": "Select locale"
+  },
+  "nav": {
+    "home": "Home",
+    "contacts": "Contacts"
+  },
+  "intro": {
+    "title": "Welcome to the next-translation {{page}} page",
+    "description": "For the heading above, the getter <getterLink>getTranslation</getterLink> is used with the given request page, \nand to add links to this text, the <componentLink>ServerTranslation</componentLink> component with the given components is used."
+  },
+  "homeContent": {
+    "title": "This page describes in detail about the company - what you do, what your goals are, reasons, history. <link>See page code</link>."
+  },
+  "contactsContent": {
+    "title": "This page describes in detail the company contacts - phones, emails, and addresses. <link>See page code</link>."
+  },
+  "additional": {
+    "needClientSideLogic": "Also, the page may need client-side logic and client components can be added for this.",
+    "toTransfer": "To transfer translations to them, you need to transfer the necessary keys at the server level through the <link>WithTranslations</link> transmitter.",
+    "additinalBonus": "An additional bonus of the approach is that if there are conditions within the component, the transfer of translations can be included in them.",
+    "onThisPage": "On this page, the client component {{component}} is displayed by condition, and accordingly, transfers are transferred to the client only for this component."
+  },
+  "additionalHome": {
+    "readMore": "Read more",
+    "additionalAboutCompany": "There may be additional information about your company, for example, founders, capital.",
+    "headerAbove": "For the header above, the <hookLink>useTranslation</hookLink> client hook is used, and to add links to these texts, the <componentLink>ClientTranslation</componentLink> component is used with the given components."
+  },
+  "additionalContacts": {
+    "viewContacts": "View contacts",
+    "additionalContacts": "There may be additional contacts here, such as telephone numbers, social networks, addresses.",
+    "headerAbove": "For the header above, the <hookLink>useTranslation</hookLink> client hook is used, and to add links to these texts, the <componentLink>ClientTranslation</componentLink> component is used with the given components."
+  },
+  "homePage": {
+    "meta": {
+      "title": "Next Translation Home"
+    }
+  },
+  "contactsPage": {
+    "meta": {
+      "title": "Next Translation Contacts"
+    }
+  }
+}

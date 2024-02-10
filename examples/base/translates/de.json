@@ -1,0 +1,45 @@
+{
+  "selectLocale": {
+    "title": "Sprache auswählen"
+  },
+  "nav": {
+    "home": "Startseite",
+    "contacts": "Kontakte"
+  },
+  "intro": {
+    "title": "Willkommen auf der {{page}}-Seite der nächsten Übersetzung",
+    "description": "Für die obige Überschrift wird der Getter <getterLink>getTranslation</getterLink> mit der angegebenen Anforderungsseite verwendet,\nund um Links zu diesem Text hinzuzufügen, wird das Komponente <componentLink>ServerTranslation</componentLink> mit den angegebenen Komponenten verwendet."
+  },
+  "homeContent": {
+    "title": "Diese Seite enthält detaillierte Informationen über das Unternehmen - was Sie tun, welche Ziele Sie haben, Gründe, Geschichte. <link>Code der Seite anzeigen</link>."
+  },
+  "contactsContent": {
+    "title": "Diese Seite beschreibt ausführlich die Kontakte des Unternehmens - Telefonnummern, E-Mails und Adressen. <link>Seite anzeigen</link>."
+  },
+  "additional": {
+    "needClientSideLogic": "Außerdem kann die Seite clientseitige Logik benötigen und es können Client-Komponenten hinzugefügt werden.",
+    "toTransfer": "Um Übersetzungen an sie zu übertragen, müssen Sie die erforderlichen Schlüssel auf Serverebene über den <link>WithTranslations</link> Transmitter übertragen.",
+    "additinalBonus": "Ein zusätzlicher Bonus des Ansatzes besteht darin, dass Übersetzungen in Komponentenbedingungen einbezogen werden können.",
+    "onThisPage": "Auf dieser Seite wird die Client-Komponente {{component}} je nach Bedingung angezeigt, und entsprechende Übersetzungen werden nur für diese Komponente an den Client übertragen."
+  },
+  "additionalHome": {
+    "readMore": "Mehr lesen",
+    "additionalAboutCompany": "Es können zusätzliche Informationen über Ihr Unternehmen vorhanden sein, wie zum Beispiel Gründer, Kapital.",
+    "headerAbove": "Für den obigen Header wird der Client-Hook <hookLink>useTranslation</hookLink> verwendet, und um Links zu diesen Texten hinzuzufügen, wird das Komponente <componentLink>ClientTranslation</componentLink> mit den angegebenen Komponenten verwendet."
+  },
+  "additionalContacts": {
+    "viewContacts": "Kontakte anzeigen",
+    "additionalContacts": "Es können zusätzliche Kontakte angezeigt werden, wie Telefonnummern, soziale Netzwerke, Adressen.",
+    "headerAbove": "Für den obigen Header wird der Client-Hook <hookLink>useTranslation</hookLink> verwendet, und um Links zu diesen Texten hinzuzufügen, wird das Komponente <componentLink>ClientTranslation</componentLink> mit den angegebenen Komponenten verwendet."
+  },
+  "homePage": {
+    "meta": {
+      "title": "Next Translation Zuhause"
+    }
+  },
+  "contactsPage": {
+    "meta": {
+      "title": "Next Translation Kontakte"
+    }
+  }
+}
