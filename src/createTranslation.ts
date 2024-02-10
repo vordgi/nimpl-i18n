@@ -1,23 +1,15 @@
 import op from 'object-path';
-import getServerContext from 'next-impl-getters/get-server-context';
-import { NextTranlationContext } from './lib/NextTranlationContext';
 import formatServerTranslate from './lib/formatServerTranslate';
 import { type NextTranslationOptions } from './types';
+import getDictionary from './lib/getDictionary';
 
-type GetTranslationReturnType = { t: (term: string, opts?: NextTranslationOptions) => string; lang: string };
+type CreateTranslationReturnType = { t: (term: string, opts?: NextTranslationOptions) => string; lang: string };
 
-const getTranslation = (namespace?: string): GetTranslationReturnType => {
-  const context = getServerContext(NextTranlationContext);
-
-  if (!context) {
-    throw new Error('Please, Init NextTranlationProvider - https://github.com/vordgi/next-translation#server-components');
-  }
-
-  const { dictionary, lang } = context;
-
+const createTranslation = async (lang: string, namespace?: string): Promise<CreateTranslationReturnType> => {
+  const dictionary = await getDictionary(lang);
   const namespaceDictionary = namespace ? op.get(dictionary, namespace) : dictionary;
 
-  const t: GetTranslationReturnType['t'] = (term, opts) => {
+  const t: CreateTranslationReturnType['t'] = (term, opts) => {
     let termDictionary = namespaceDictionary;
     let termNamespace = namespace;
     let termKey: string = term;
@@ -38,4 +30,4 @@ const getTranslation = (namespace?: string): GetTranslationReturnType => {
   return { t, lang };
 };
 
-export default getTranslation;
+export default createTranslation;

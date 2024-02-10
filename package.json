@@ -1,13 +1,22 @@
 {
   "name": "next-translation",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "Next-translation is the i18n library for working with translations in server and client components",
   "exports": {
     "./ClientTranslation": {
       "default": "./dist/ClientTranslation.js"
     },
+    "./createTranslation": {
+      "default": "./dist/createTranslation.js"
+    },
     "./getTranslation": {
       "default": "./dist/getTranslation.js"
+    },
+    "./NextTranlationProvider": {
+      "default": "./dist/NextTranlationProvider.js"
+    },
+    "./NextTranlationTransmitter": {
+      "default": "./dist/NextTranlationTransmitter.js"
     },
     "./ServerTranslation": {
       "default": "./dist/ServerTranslation.js"
@@ -18,21 +27,13 @@
     "./useTranslation": {
       "default": "./dist/useTranslation.js"
     },
-    "./WithNextTranlation": {
-      "default": "./dist/WithNextTranlation.js"
-    },
-    "./lib/parseEntities": {
-      "default": "./dist/lib/parseEntities.js"
+    "./withNextTranslation": {
+      "default": "./dist/withNextTranslation.js"
     }
   },
   "files": [
     "dist",
-    "ClientTranslation.d.ts",
-    "getTranslation.d.ts",
-    "ServerTranslation.d.ts",
-    "types.d.ts",
-    "useTranslation.d.ts",
-    "WithNextTranlation.d.ts"
+    "*.d.ts"
   ],
   "scripts": {
     "build": "tsc"
@@ -70,7 +71,7 @@
   },
   "dependencies": {
     "html-entities": "2.4.0",
-    "next-impl-getters": "0.2.0",
+    "next-impl-getters": "0.3.1",
     "object-path": "0.11.8"
   }
 }
