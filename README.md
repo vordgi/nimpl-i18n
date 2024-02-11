@@ -225,7 +225,7 @@ module.exports = {
 
 **load [required]**
 
-Asynchronous function for translates loading
+Asynchronous function for translates loading.
 
 Function will receive 2 arguments:
 
