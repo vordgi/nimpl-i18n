@@ -1,0 +1,45 @@
+{
+  "selectLocale": {
+    "title": "Sélectionner la langue"
+  },
+  "nav": {
+    "home": "Accueil",
+    "contacts": "Contacts"
+  },
+  "intro": {
+    "title": "Bienvenue sur la page {{page}} de traduction suivante",
+    "description": "Pour l'en-tête ci-dessus, le getter <getterLink>getTranslation</getterLink> est utilisé avec la page de demande spécifiée, \net pour ajouter des liens à ce texte, le composant <componentLink>ServerTranslation</componentLink> avec les composants spécifiés est utilisé."
+  },
+  "homeContent": {
+    "title": "Cette page décrit en détail l'entreprise - ce que vous faites, quels sont vos objectifs, raisons, histoire. <link>Voir le code de la page</link>."
+  },
+  "contactsContent": {
+    "title": "Cette page décrit en détail les contacts de l'entreprise - téléphones, emails et adresses. <link>Voir le code de la page</link>."
+  },
+  "additional": {
+    "needClientSideLogic": "De plus, la page peut nécessiter de la logique côté client et des composants côté client peuvent être ajoutés à cet effet.",
+    "toTransfer": "Pour transférer les traductions à ces derniers, vous devez transférer les clés nécessaires au niveau du serveur via l'émetteur <link>WithTranslations</link>.",
+    "additinalBonus": "Un avantage supplémentaire de cette approche est que si des conditions existent dans le composant, le transfert des traductions peut y être inclus.",
+    "onThisPage": "Sur cette page, le composant côté client {{component}} est affiché en fonction d'une condition, et en conséquence, les transferts sont effectués uniquement pour ce composant côté client."
+  },
+  "additionalHome": {
+    "readMore": "En savoir plus",
+    "additionalAboutCompany": "Il peut y avoir des informations supplémentaires sur votre entreprise, par exemple, les fondateurs, le capital.",
+    "headerAbove": "Pour l'en-tête ci-dessus, l'accroche client <hookLink>useTranslation</hookLink> est utilisée, et pour ajouter des liens à ces textes, le composant <componentLink>ClientTranslation</componentLink> est utilisé avec les composants spécifiés."
+  },
+  "additionalContacts": {
+    "viewContacts": "Voir les contacts",
+    "additionalContacts": "Il peut y avoir des contacts supplémentaires ici, tels que des numéros de téléphone, des réseaux sociaux, des adresses.",
+    "headerAbove": "Pour l'en-tête ci-dessus, l'accroche client <hookLink>useTranslation</hookLink> est utilisée, et pour ajouter des liens à ces textes, le composant <componentLink>ClientTranslation</componentLink> est utilisé avec les composants spécifiés."
+  },
+  "homePage": {
+    "meta": {
+      "title": "Next Translation Maison"
+    }
+  },
+  "contactsPage": {
+    "meta": {
+      "title": "Next Translation Contacts"
+    }
+  }
+}

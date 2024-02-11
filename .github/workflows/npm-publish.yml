@@ -21,12 +21,14 @@ jobs:
         run: |
           npm ci
           npm run build
+        working-directory: ./package
 
       - name: Publish on main
         if: "!contains(github.ref_name, 'canary')"
         run: |
           npm set //registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}
           npm publish --access public
+        working-directory: ./package
 
       - name: Publish on canary
         if: contains(github.ref_name, 'canary')
@@ -34,3 +36,4 @@ jobs:
           npm set //registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}
           npm version --no-git-tag-version ${{github.ref_name}}
           npm publish --tag canary --access public
+        working-directory: ./package
