@@ -56,6 +56,8 @@ export default function HomePage({ params }: { params: { lang: string } }) {
 }
 ```
 
+Client terms will be passed to the client. You can specify both namespaces and specific keys.
+
 *Note: Layout lives independently, so it needs to be wrapped in* `NextTranslationProvider` *separately.*
 
 ### Server components
@@ -96,6 +98,8 @@ const ServerComponent: React.FC = () => (
 ### Client components
 
 The translations specified in `NextTranslationProvider` are passed to the client, but you can specify additional translations in any parent server component using `NextTranslationTransmitter`.
+
+You can specify both namespaces and specific keys.
 
 ```tsx
 import NextTranslationTransmitter from 'next-tranlation/NextTranslationTransmitter';
