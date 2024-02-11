@@ -46,9 +46,6 @@ async function createCacheServer(port: string) {
   process.on('SIGTERM', () => {
     server.close();
   })
-  process.on('SIGKILL', () => {
-    server.close();
-  })
 
   return {
     secret: serverSecret,
