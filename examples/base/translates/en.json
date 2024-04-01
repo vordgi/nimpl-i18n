@@ -7,7 +7,7 @@
     "contacts": "Contacts"
   },
   "intro": {
-    "title": "Welcome to the next-translation {{page}} page",
+    "title": "Welcome to the @nimpl/i18n {{page}} page",
     "description": "For the heading above, the getter <getterLink>getTranslation</getterLink> is used with the given request page, \nand to add links to this text, the <componentLink>ServerTranslation</componentLink> component with the given components is used."
   },
   "homeContent": {
@@ -34,12 +34,12 @@
   },
   "homePage": {
     "meta": {
-      "title": "Next Translation Home"
+      "title": "@nimpl/i18n Home"
     }
   },
   "contactsPage": {
     "meta": {
-      "title": "Next Translation Contacts"
+      "title": "@nimpl/i18n Contacts"
     }
   }
 }

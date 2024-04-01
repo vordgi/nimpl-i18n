@@ -1,6 +1,6 @@
 const fs = require('fs/promises')
 
-/** @type {import('next-translation/configuration/types').Config} */
+/** @type {import('@nimpl/i18n/configuration/types').Config} */
 module.exports = {
   load: async (lang) => {
     const data = await fs.readFile(`./translates/${lang}.json`).then((data) => JSON.parse(data))

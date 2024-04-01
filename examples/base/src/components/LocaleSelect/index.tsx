@@ -1,4 +1,4 @@
-import getTranslation from 'next-translation/getTranslation'
+import getTranslation from '@nimpl/i18n/getTranslation'
 import Link from 'next/link'
 
 const languages = ['en', 'fr', 'de']

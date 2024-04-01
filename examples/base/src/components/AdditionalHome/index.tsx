@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import useTranslation from 'next-translation/useTranslation'
-import ClientTranslation from 'next-translation/ClientTranslation'
+import useTranslation from '@nimpl/i18n/useTranslation'
+import ClientTranslation from '@nimpl/i18n/ClientTranslation'
 
 export default function AdditionalHome() {
   const { t } = useTranslation()
@@ -20,10 +20,10 @@ export default function AdditionalHome() {
             term="additionalHome.headerAbove"
             components={{
               hookLink: (
-                <a href="https://github.com/vordgi/next-translation?tab=readme-ov-file#client-components" />
+                <a href="https://github.com/vordgi/nimpl-i18n?tab=readme-ov-file#client-components" />
               ),
               componentLink: (
-                <a href="https://github.com/vordgi/next-translation?tab=readme-ov-file#client-components" />
+                <a href="https://github.com/vordgi/nimpl-i18n?tab=readme-ov-file#client-components" />
               ),
             }}
           />

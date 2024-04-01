@@ -1,5 +1,5 @@
-import getTranslation from 'next-translation/getTranslation'
-import ServerTranslation from 'next-translation/ServerTranslation'
+import getTranslation from '@nimpl/i18n/getTranslation'
+import ServerTranslation from '@nimpl/i18n/ServerTranslation'
 
 export default function Intro({ page }: { page: string }) {
   const { t } = getTranslation()
@@ -12,10 +12,10 @@ export default function Intro({ page }: { page: string }) {
           term="intro.description"
           components={{
             getterLink: (
-              <a href="https://github.com/vordgi/next-translation?tab=readme-ov-file#server-components" />
+              <a href="https://github.com/vordgi/nimpl-i18n?tab=readme-ov-file#server-components" />
             ),
             componentLink: (
-              <a href="https://github.com/vordgi/next-translation?tab=readme-ov-file#server-components" />
+              <a href="https://github.com/vordgi/nimpl-i18n?tab=readme-ov-file#server-components" />
             ),
           }}
         />

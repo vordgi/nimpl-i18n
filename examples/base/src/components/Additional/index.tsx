@@ -1,6 +1,6 @@
-import getTranslation from 'next-translation/getTranslation'
-import ServerTranslation from 'next-translation/ServerTranslation'
-import NextTranlationTransmitter from 'next-translation/NextTranlationTransmitter'
+import getTranslation from '@nimpl/i18n/getTranslation'
+import ServerTranslation from '@nimpl/i18n/ServerTranslation'
+import NextTranlationTransmitter from '@nimpl/i18n/NextTranlationTransmitter'
 import AdditionalHome from '../AdditionalHome'
 import AdditionalContacts from '../AdditionalContacts'
 
@@ -15,7 +15,7 @@ export default function Additional({ page }: { page: string }) {
           term="additional.toTransfer"
           components={{
             link: (
-              <a href="https://github.com/vordgi/next-translation?tab=readme-ov-file#client-components" />
+              <a href="https://github.com/vordgi/nimpl-i18n?tab=readme-ov-file#client-components" />
             ),
           }}
         />

@@ -1,4 +1,4 @@
-import ServerTranslation from 'next-translation/ServerTranslation'
+import ServerTranslation from '@nimpl/i18n/ServerTranslation'
 
 export default function ContactsContent() {
   return (
@@ -8,7 +8,7 @@ export default function ContactsContent() {
           term="contactsContent.title"
           components={{
             link: (
-              <a href="https://github.com/vordgi/next-translation/examples/base/src/app/%5Blang%5D/contacts/page.tsx" />
+              <a href="https://github.com/vordgi/nimpl-i18n/examples/base/src/app/%5Blang%5D/contacts/page.tsx" />
             ),
           }}
         />

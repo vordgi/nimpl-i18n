@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Next.js Next-translation Example',
+  title: 'Next.js @nimpl/i18n Example',
   description: '',
 }
 

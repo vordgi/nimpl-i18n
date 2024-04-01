@@ -3,12 +3,12 @@ import Nav from '../../components/Nav'
 import Intro from '../../components/Intro'
 import HomeContent from '../../components/HomeContent'
 import Additional from '../../components/Additional'
-import NextTranlationProvider from 'next-translation/NextTranlationProvider'
-import createTranslation from 'next-translation/createTranslation'
+import I18nProvider from '@nimpl/i18n/I18nProvider'
+import createTranslation from '@nimpl/i18n/createTranslation'
 
 export default async function Home({ params }: { params: { lang: string } }) {
   return (
-    <NextTranlationProvider lang={params.lang} clientTerms={[]}>
+    <I18nProvider lang={params.lang} clientTerms={[]}>
       <main>
         <LocaleSelect />
         <Nav />
@@ -16,7 +16,7 @@ export default async function Home({ params }: { params: { lang: string } }) {
         <HomeContent />
         <Additional page="home" />
       </main>
-    </NextTranlationProvider>
+    </I18nProvider>
   )
 }
 
