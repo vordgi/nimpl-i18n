@@ -31,7 +31,7 @@ const I18nTransmitter: React.FC<I18nTransmitterProps> = async ({ terms, children
   const context = getServerContext(I18nContext);
 
   if (!context) {
-    throw new Error('Please, Init I18nProvider - https://github.com/vordgi/next-translation#server-components');
+    throw new Error('Please, Init I18nProvider - https://github.com/vordgi/nimpl-i18n#server-components');
   }
 
   const { dictionary, lang } = context;
