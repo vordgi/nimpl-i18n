@@ -1,6 +1,6 @@
 import getTranslation from '@nimpl/i18n/getTranslation'
 import ServerTranslation from '@nimpl/i18n/ServerTranslation'
-import NextTranlationTransmitter from '@nimpl/i18n/NextTranlationTransmitter'
+import I18nTransmitter from '@nimpl/i18n/I18nTransmitter'
 import AdditionalHome from '../AdditionalHome'
 import AdditionalContacts from '../AdditionalContacts'
 
@@ -30,13 +30,13 @@ export default function Additional({ page }: { page: string }) {
         })}
       </p>
       {page === 'home' ? (
-        <NextTranlationTransmitter terms={['additionalHome']}>
+        <I18nTransmitter terms={['additionalHome']}>
           <AdditionalHome />
-        </NextTranlationTransmitter>
+        </I18nTransmitter>
       ) : (
-        <NextTranlationTransmitter terms={['additionalContacts']}>
+        <I18nTransmitter terms={['additionalContacts']}>
           <AdditionalContacts />
-        </NextTranlationTransmitter>
+        </I18nTransmitter>
       )}
     </section>
   )
