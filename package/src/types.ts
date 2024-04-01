@@ -4,6 +4,6 @@ export type GetLangOpts = { pathname: string | null, params: {[key: string]: str
 
 export type Query = { [key: string]: string | number };
 
-export type NextTranslationOptions = { query?: Query, removeUnusedQueries?: boolean }
+export type I18nOptions = { query?: Query, removeUnusedQueries?: boolean }
 
-export type NextTranlationContextType = { lang: string; translates: { [key: string]: string } } | null;
+export type I18nContextType = { lang: string; translates: { [key: string]: string } } | null;

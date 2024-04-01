@@ -1,20 +1,20 @@
 import React from 'react';
 import op from 'object-path';
 import getServerContext from 'next-impl-getters/get-server-context';
-import { NextTranlationContext } from './lib/NextTranlationContext';
-import { type NextTranslationOptions, type Translates } from './types';
-import ClientNextTranlationProvider from './lib/ClientNextTranlationProvider';
+import { I18nContext } from './lib/I18nContext';
+import { type I18nOptions, type Translates } from './types';
+import ClientI18nProvider from './lib/ClientI18nProvider';
 import formatServerTranslate from './lib/formatServerTranslate';
 
-export type NextTranlationTransmitterProps = {
-  terms: (string | [string, NextTranslationOptions])[];
+export type I18nTransmitterProps = {
+  terms: (string | [string, I18nOptions])[];
   children: React.ReactNode;
   cleanThread?: boolean;
 };
 
 type ClientTranslates = { [key: string]: string };
 
-const formatServerTranslates = (result: ClientTranslates, targetKey: string, translates: string | Translates, opts: NextTranslationOptions = {}) => {
+const formatServerTranslates = (result: ClientTranslates, targetKey: string, translates: string | Translates, opts: I18nOptions = {}) => {
   if (!translates) return;
 
   if (typeof translates === 'string') {
@@ -27,11 +27,11 @@ const formatServerTranslates = (result: ClientTranslates, targetKey: string, tra
   }
 };
 
-const NextTranlationTransmitter: React.FC<NextTranlationTransmitterProps> = async ({ terms, children, cleanThread }) => {
-  const context = getServerContext(NextTranlationContext);
+const I18nTransmitter: React.FC<I18nTransmitterProps> = async ({ terms, children, cleanThread }) => {
+  const context = getServerContext(I18nContext);
 
   if (!context) {
-    throw new Error('Please, Init NextTranlationProvider - https://github.com/vordgi/next-translation#server-components');
+    throw new Error('Please, Init I18nProvider - https://github.com/vordgi/nimpl-i18n#server-components');
   }
 
   const { dictionary, lang } = context;
@@ -49,10 +49,10 @@ const NextTranlationTransmitter: React.FC<NextTranlationTransmitterProps> = asyn
   });
 
   return (
-    <ClientNextTranlationProvider lang={lang} translates={result} cleanThread={cleanThread}>
+    <ClientI18nProvider lang={lang} translates={result} cleanThread={cleanThread}>
       {children}
-    </ClientNextTranlationProvider>
+    </ClientI18nProvider>
   );
 };
 
-export default NextTranlationTransmitter;
+export default I18nTransmitter;

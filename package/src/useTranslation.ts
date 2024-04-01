@@ -1,15 +1,15 @@
 import { useContext } from 'react';
-import { type NextTranslationOptions } from './types';
-import { ClientNextTranlationContext } from './lib/ClientNextTranlationContext';
+import { type I18nOptions } from './types';
+import { ClientI18nContext } from './lib/ClientI18nContext';
 import injectQuery from './lib/injectQuery';
 
-type GetTranslationReturnType = { t: (term: string, opts?: NextTranslationOptions) => string; lang: string };
+type GetTranslationReturnType = { t: (term: string, opts?: I18nOptions) => string; lang: string };
 
 const useTranslation = (namespace?: string): GetTranslationReturnType => {
-  const context = useContext(ClientNextTranlationContext);
+  const context = useContext(ClientI18nContext);
 
   if (!context) {
-    throw new Error('Please, Init NextTranlationTransmitter for client components - https://github.com/vordgi/next-translation#client-components');
+    throw new Error('Please, Init I18nTransmitter for client components - https://nimpl.tech/i18n/usage#client-components');
   }
 
   const { lang, translates } = context;

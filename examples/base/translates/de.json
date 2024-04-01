@@ -34,12 +34,12 @@
   },
   "homePage": {
     "meta": {
-      "title": "Next Translation Zuhause"
+      "title": "@nimpl/i18n Zuhause"
     }
   },
   "contactsPage": {
     "meta": {
-      "title": "Next Translation Kontakte"
+      "title": "@nimpl/i18n Kontakte"
     }
   }
 }

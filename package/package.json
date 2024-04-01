@@ -1,7 +1,7 @@
 {
-  "name": "next-translation",
-  "version": "1.0.3",
-  "description": "Next-translation is the i18n library for working with translations in server and client components",
+  "name": "@nimpl/i18n",
+  "version": "1.1.0",
+  "description": "i18n library for working with translations in server and client components",
   "exports": {
     "./ClientTranslation": {
       "default": "./dist/ClientTranslation.js"
@@ -12,11 +12,11 @@
     "./getTranslation": {
       "default": "./dist/getTranslation.js"
     },
-    "./NextTranlationProvider": {
-      "default": "./dist/NextTranlationProvider.js"
+    "./I18nProvider": {
+      "default": "./dist/I18nProvider.js"
     },
-    "./NextTranlationTransmitter": {
-      "default": "./dist/NextTranlationTransmitter.js"
+    "./I18nTransmitter": {
+      "default": "./dist/I18nTransmitter.js"
     },
     "./ServerTranslation": {
       "default": "./dist/ServerTranslation.js"
@@ -27,8 +27,8 @@
     "./useTranslation": {
       "default": "./dist/useTranslation.js"
     },
-    "./withNextTranslation": {
-      "default": "./dist/withNextTranslation.js"
+    "./withI18n": {
+      "default": "./dist/withI18n.js"
     }
   },
   "files": [
@@ -51,7 +51,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/vordgi/next-translation.git"
+    "url": "git://github.com/vordgi/nimpl-i18n.git"
   },
   "author": {
     "name": "Savelyev Alexander",

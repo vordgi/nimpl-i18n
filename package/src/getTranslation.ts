@@ -1,16 +1,16 @@
 import op from 'object-path';
 import getServerContext from 'next-impl-getters/get-server-context';
-import { NextTranlationContext } from './lib/NextTranlationContext';
+import { I18nContext } from './lib/I18nContext';
 import formatServerTranslate from './lib/formatServerTranslate';
-import { type NextTranslationOptions } from './types';
+import { type I18nOptions } from './types';
 
-type GetTranslationReturnType = { t: (term: string, opts?: NextTranslationOptions) => string; lang: string };
+type GetTranslationReturnType = { t: (term: string, opts?: I18nOptions) => string; lang: string };
 
 const getTranslation = (namespace?: string): GetTranslationReturnType => {
-  const context = getServerContext(NextTranlationContext);
+  const context = getServerContext(I18nContext);
 
   if (!context) {
-    throw new Error('Please, Init NextTranlationProvider - https://github.com/vordgi/next-translation#server-components');
+    throw new Error('Please, Init I18nProvider - https://nimpl.tech/i18n/usage#i18nprovider');
   }
 
   const { dictionary, lang } = context;
