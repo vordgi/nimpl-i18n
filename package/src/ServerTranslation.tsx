@@ -1,13 +1,13 @@
 import React from 'react';
-import { type NextTranslationOptions } from './types';
+import { type I18nOptions } from './types';
 import Translation from './lib/Translation';
 import getTranslation from './getTranslation';
 
 type ServerTranslationProps = {
   term: string;
   components?: { [key: string]: JSX.Element };
-  query?: NextTranslationOptions['query'];
-  removeUnusedQueries?: NextTranslationOptions['removeUnusedQueries'];
+  query?: I18nOptions['query'];
+  removeUnusedQueries?: I18nOptions['removeUnusedQueries'];
 };
 
 const ServerTranslation: React.FC<ServerTranslationProps> = ({ term, components, query, removeUnusedQueries }) => {

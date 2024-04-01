@@ -27,13 +27,13 @@ Support for html entities.
 **Using npm:**
 
 ```bash
-npm i @nimpl/translation
+npm i @nimpl/i18n
 ```
 
 **Using yarn:**
 
 ```bash
-yarn add @nimpl/translation
+yarn add @nimpl/i18n
 ```
 
 ## Additionally

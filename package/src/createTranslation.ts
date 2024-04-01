@@ -1,9 +1,9 @@
 import op from 'object-path';
 import formatServerTranslate from './lib/formatServerTranslate';
-import { type NextTranslationOptions } from './types';
+import { type I18nOptions } from './types';
 import getDictionary from './lib/getDictionary';
 
-type CreateTranslationReturnType = { t: (term: string, opts?: NextTranslationOptions) => string; lang: string };
+type CreateTranslationReturnType = { t: (term: string, opts?: I18nOptions) => string; lang: string };
 
 const createTranslation = async (lang: string, namespace?: string): Promise<CreateTranslationReturnType> => {
   const dictionary = await getDictionary(lang);

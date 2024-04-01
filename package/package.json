@@ -12,11 +12,11 @@
     "./getTranslation": {
       "default": "./dist/getTranslation.js"
     },
-    "./NextTranlationProvider": {
-      "default": "./dist/NextTranlationProvider.js"
+    "./I18nProvider": {
+      "default": "./dist/I18nProvider.js"
     },
-    "./NextTranlationTransmitter": {
-      "default": "./dist/NextTranlationTransmitter.js"
+    "./I18nTransmitter": {
+      "default": "./dist/I18nTransmitter.js"
     },
     "./ServerTranslation": {
       "default": "./dist/ServerTranslation.js"
@@ -27,8 +27,8 @@
     "./useTranslation": {
       "default": "./dist/useTranslation.js"
     },
-    "./withNextTranslation": {
-      "default": "./dist/withNextTranslation.js"
+    "./withI18n": {
+      "default": "./dist/withI18n.js"
     }
   },
   "files": [
