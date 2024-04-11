@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { createContext } from 'react';
+import { createContext } from "react";
 
 type ClientI18nContextType = { lang: string; translates: { [key: string]: string } } | null;
 
