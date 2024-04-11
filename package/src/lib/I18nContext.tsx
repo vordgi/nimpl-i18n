@@ -1,5 +1,5 @@
-import createServerContext from 'next-impl-getters/create-server-context';
-import { type Translates } from '../types';
+import createServerContext from "next-impl-getters/create-server-context";
+import { type Translates } from "../types";
 
 type I18nContextType = {
     lang: string;
