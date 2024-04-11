@@ -5,7 +5,8 @@
   "scripts": {
     "nimpl:i18n": "pnpm --filter @nimpl/i18n",
     "lint": "eslint \"package/\"",
-    "eslint": "eslint"
+    "eslint": "eslint",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
