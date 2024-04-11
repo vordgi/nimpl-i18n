@@ -1,0 +1,11 @@
+{
+  "name": "nimpl-i18n",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "nimpl:i18n": "pnpm --filter @nimpl/i18n"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

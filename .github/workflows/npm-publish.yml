@@ -17,12 +17,17 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies and build
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Install deps and Build package
         run: |
-          npm ci
-          npm run build
-          cp ../README.md .
-        working-directory: ./package
+          pnpm install
+          pnpm nimpl:i18n run build
+          cp README.md ./package
+          cp LICENSE ./package
 
       - name: Publish on main
         if: "!contains(github.ref_name, 'canary')"
