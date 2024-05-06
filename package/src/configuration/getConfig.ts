@@ -11,7 +11,7 @@ const getConfig = async (): Promise<Config> => {
     try {
         if (fs.existsSync(CONFIG_PATH)) {
             const config: { default: Config } = await dynamicImport(pathToFileURL(CONFIG_PATH).href);
-            const { load, languages } = config.default;
+            const { load, getLanguage, languages } = config.default;
 
             if (!load) {
                 throw new Error(
@@ -25,10 +25,16 @@ const getConfig = async (): Promise<Config> => {
                 );
             }
 
+            if (!getLanguage) {
+                throw new Error(
+                    `Can't find getLanguage method in configuration file - https://github.com/vordgi/nimpl-i18n#configuration`,
+                );
+            }
+
             return config.default;
         }
-    } catch {
-        //
+    } catch (err) {
+        console.error(err);
     }
     throw new Error("Can't load config - https://github.com/vordgi/nimpl-i18n#configuration");
 };

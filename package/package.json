@@ -6,14 +6,8 @@
     "./ClientTranslation": {
       "default": "./dist/ClientTranslation.js"
     },
-    "./createTranslation": {
-      "default": "./dist/createTranslation.js"
-    },
     "./getTranslation": {
       "default": "./dist/getTranslation.js"
-    },
-    "./I18nProvider": {
-      "default": "./dist/I18nProvider.js"
     },
     "./I18nTransmitter": {
       "default": "./dist/I18nTransmitter.js"
@@ -26,9 +20,6 @@
     },
     "./useTranslation": {
       "default": "./dist/useTranslation.js"
-    },
-    "./withI18n": {
-      "default": "./dist/withI18n.js"
     }
   },
   "files": [
@@ -70,8 +61,8 @@
     "react": ">= 18.2.0"
   },
   "dependencies": {
-    "html-entities": "2.4.0",
     "@nimpl/getters": "1.3.4",
+    "html-entities": "2.4.0",
     "object-path": "0.11.8"
   }
 }

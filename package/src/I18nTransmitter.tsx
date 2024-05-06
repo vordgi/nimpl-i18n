@@ -1,16 +1,15 @@
 import React from "react";
 import op from "object-path";
-import getServerContext from "@nimpl/getters/get-server-context";
-import { I18nContext } from "./lib/I18nContext";
 import { type I18nOptions, type Translates } from "./types";
 import ClientI18nProvider from "./lib/ClientI18nProvider";
 import formatServerTranslate from "./lib/formatServerTranslate";
-import getDictionary from "./lib/getDictionary";
+import loadI18nData from "./lib/loadI18nData";
 
 export type I18nTransmitterProps = {
     terms: (string | [string, I18nOptions])[];
     children: React.ReactNode;
     cleanThread?: boolean;
+    language?: string;
 };
 
 type ClientTranslates = { [key: string]: string };
@@ -33,15 +32,20 @@ const formatServerTranslates = (
     }
 };
 
-const I18nTransmitter: React.FC<I18nTransmitterProps> = async ({ terms, children, cleanThread }) => {
-    const context = getServerContext(I18nContext);
+const I18nTransmitter: React.FC<I18nTransmitterProps> = async ({
+    language: argLanguage,
+    terms,
+    children,
+    cleanThread,
+}) => {
+    const { dictionary, language: configLanguage } = await loadI18nData();
+    const language = argLanguage || configLanguage;
 
-    if (!context) {
-        throw new Error("Please, Init I18nProvider - https://github.com/vordgi/nimpl-i18n#server-components");
+    if (!language) {
+        throw new Error(
+            "Unable to get the language in the createTranslation function. Please check the getLanguage method in the configuration file or pass the language as an argument.",
+        );
     }
-
-    const { lang } = context;
-    const dictionary = await getDictionary(lang);
 
     const result: { [key: string]: string } = {};
     terms.forEach((term) => {
@@ -56,7 +60,7 @@ const I18nTransmitter: React.FC<I18nTransmitterProps> = async ({ terms, children
     });
 
     return (
-        <ClientI18nProvider lang={lang} translates={result} cleanThread={cleanThread}>
+        <ClientI18nProvider language={language} translates={result} cleanThread={cleanThread}>
             {children}
         </ClientI18nProvider>
     );
