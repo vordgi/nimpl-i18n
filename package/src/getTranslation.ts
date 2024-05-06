@@ -1,21 +1,23 @@
 import op from "object-path";
-import getServerContext from "@nimpl/getters/get-server-context";
-import { I18nContext } from "./lib/I18nContext";
 import formatServerTranslate from "./lib/formatServerTranslate";
 import { type I18nOptions } from "./types";
-import getDictionary from "./lib/getDictionary";
+import loadI18nData from "./lib/loadI18nData";
 
-type GetTranslationReturnType = { t: (term: string, opts?: I18nOptions) => string; lang: string };
+type GetTranslationReturnType = { t: (term: string, opts?: I18nOptions) => string; language: string };
 
-const getTranslation = async (namespace?: string): Promise<GetTranslationReturnType> => {
-    const context = getServerContext(I18nContext);
+const getTranslation = async (options?: {
+    language?: string;
+    namespace?: string;
+}): Promise<GetTranslationReturnType> => {
+    const { language: argLanguage, namespace } = options || {};
+    const { dictionary, language: configLanguage } = await loadI18nData();
+    const language = argLanguage || configLanguage;
 
-    if (!context) {
-        throw new Error("Please, Init I18nProvider - https://nimpl.tech/i18n/usage#i18nprovider");
+    if (!language) {
+        throw new Error(
+            "Unable to get the language in the createTranslation function. Please check the getLanguage method in the configuration file or pass the language as an argument.",
+        );
     }
-
-    const dictionary = await getDictionary(context.lang);
-    const { lang } = context;
 
     const namespaceDictionary = namespace ? op.get(dictionary, namespace) : dictionary;
 
@@ -37,7 +39,7 @@ const getTranslation = async (namespace?: string): Promise<GetTranslationReturnT
         return formatServerTranslate({ term: fullTerm, text: translation, parseEntities: true, ...opts });
     };
 
-    return { t, lang };
+    return { t, language };
 };
 
 export default getTranslation;
