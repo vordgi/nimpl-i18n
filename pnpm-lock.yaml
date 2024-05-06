@@ -29,12 +29,12 @@ importers:
 
   package:
     dependencies:
+      '@nimpl/getters':
+        specifier: 1.3.4
+        version: 1.3.4(next@14.1.4)(react-dom@18.2.0)(react@18.2.0)
       html-entities:
         specifier: 2.4.0
         version: 2.4.0
-      next-impl-getters:
-        specifier: 0.3.1
-        version: 0.3.1(next@14.1.4)(react-dom@18.2.0)(react@18.2.0)
       object-path:
         specifier: 0.11.8
         version: 0.11.8
@@ -203,6 +203,18 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@nimpl/getters@1.3.4(next@14.1.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-L7B6mTBvCtuSOxYBv68zzAYXzoDUm3P/1M7KkPEo5+0r9zFPRoV6bgcqyYns2QfEuNK9RrRAQ1Xh/eFcQFTnBw==}
+    peerDependencies:
+      next: '>= 14.0.0'
+      react: '>= 18.2.0'
+      react-dom: '>= 18.2.0'
+    dependencies:
+      next: 14.1.4(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -979,19 +991,6 @@ packages:
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
-
-  /next-impl-getters@0.3.1(next@14.1.4)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-uQwV/O26F/blUZetSwtx3E2PENjaIT8EXaNf7mJSHG0JzFNFLp0uXC/a2M4YFSqzlNW7orx3QN+X6p9YWGKdhA==}
-    deprecated: Package has been moved to https://www.npmjs.com/package/@nimpl/getters
-    peerDependencies:
-      next: '>= 14.0.0'
-      react: '>= 18.2.0'
-      react-dom: '>= 18.2.0'
-    dependencies:
-      next: 14.1.4(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
 
   /next@14.1.4(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-1WTaXeSrUwlz/XcnhGTY7+8eiaFvdet5z9u3V2jb+Ek1vFo0VhHKSAIJvDWfQpttWjnyw14kBeq28TPq7bTeEQ==}

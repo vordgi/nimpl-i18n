@@ -1,15 +1,15 @@
+import getConfig from "../configuration/getConfig";
 import { type Translates } from "../types";
 
 const getDictionary = async (lang: string): Promise<Translates> => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const origFetch = (globalThis as any)._nextOriginalFetch || fetch;
-    const dataResp = await origFetch(
-        `http://localhost:${process.env.I18N_CACHE_PORT}/?secret=${process.env.I18N_CACHE_SECRET}&lang=${lang}`,
-        { cache: "no-cache" },
-    );
-    const data = await dataResp.json();
+    const config = await getConfig();
 
-    return data;
+    if (!lang || !config.languages.includes(lang)) {
+        throw new Error(`Can\' load data for language "${lang}", valid languages are: ${config.languages.join(", ")}`);
+    }
+
+    const { data } = await config.load(lang);
+    return data as Translates;
 };
 
 export default getDictionary;

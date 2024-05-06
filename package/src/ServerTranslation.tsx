@@ -10,8 +10,13 @@ type ServerTranslationProps = {
     removeUnusedQueries?: I18nOptions["removeUnusedQueries"];
 };
 
-const ServerTranslation: React.FC<ServerTranslationProps> = ({ term, components, query, removeUnusedQueries }) => {
-    const { t } = getTranslation();
+const ServerTranslation: React.FC<ServerTranslationProps> = async ({
+    term,
+    components,
+    query,
+    removeUnusedQueries,
+}) => {
+    const { t } = await getTranslation();
     const text = t(term, { query, removeUnusedQueries });
 
     return <Translation term={term} text={text} components={components} />;

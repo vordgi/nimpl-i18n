@@ -71,7 +71,7 @@
   },
   "dependencies": {
     "html-entities": "2.4.0",
-    "next-impl-getters": "0.3.1",
+    "@nimpl/getters": "1.3.4",
     "object-path": "0.11.8"
   }
 }

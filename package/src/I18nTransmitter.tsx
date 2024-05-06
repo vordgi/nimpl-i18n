@@ -1,10 +1,11 @@
 import React from "react";
 import op from "object-path";
-import getServerContext from "next-impl-getters/get-server-context";
+import getServerContext from "@nimpl/getters/get-server-context";
 import { I18nContext } from "./lib/I18nContext";
 import { type I18nOptions, type Translates } from "./types";
 import ClientI18nProvider from "./lib/ClientI18nProvider";
 import formatServerTranslate from "./lib/formatServerTranslate";
+import getDictionary from "./lib/getDictionary";
 
 export type I18nTransmitterProps = {
     terms: (string | [string, I18nOptions])[];
@@ -39,7 +40,8 @@ const I18nTransmitter: React.FC<I18nTransmitterProps> = async ({ terms, children
         throw new Error("Please, Init I18nProvider - https://github.com/vordgi/nimpl-i18n#server-components");
     }
 
-    const { dictionary, lang } = context;
+    const { lang } = context;
+    const dictionary = await getDictionary(lang);
 
     const result: { [key: string]: string } = {};
     terms.forEach((term) => {
