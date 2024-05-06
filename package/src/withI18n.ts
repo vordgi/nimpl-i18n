@@ -3,8 +3,8 @@ import createCacheServer from "./configuration/createCacheServer";
 const PORT = "24";
 let cacheSecret = process.env.I18N_CACHE_SECRET;
 
-const withI18n = async (phase: string) => {
-    if (!cacheSecret && process.env.NODE_ENV === "development") {
+const withI18n = async () => {
+    if (!cacheSecret) {
         try {
             const devResp = await fetch(`http://localhost:${PORT}/?type=dev`);
             const data = await devResp.json();
@@ -16,7 +16,7 @@ const withI18n = async (phase: string) => {
         }
     }
 
-    if ((phase === "phase-development-server" || phase === "phase-production-server") && !cacheSecret) {
+    if (!cacheSecret) {
         const { secret } = await createCacheServer(PORT);
         cacheSecret = secret;
     }
