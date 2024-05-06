@@ -1,6 +1,8 @@
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import tseslint from "typescript-eslint";
 
+const ignores = ["**/node_modules/**", "**/dist/**"];
+
 export default [
     eslintPluginPrettierRecommended,
     ...tseslint.configs.recommended,
@@ -16,6 +18,5 @@ export default [
                 },
             ],
         },
-        ignores: ["node_modules/", "**/node_modules/", "**/dist/"],
     },
-];
+].map((r) => Object.assign(r, { ignores }));
