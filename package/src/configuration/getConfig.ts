@@ -14,11 +14,15 @@ const getConfig = async (): Promise<Config> => {
             const { load, languages } = config.default;
 
             if (!load) {
-                throw new Error(`Can't find loaderProvider - https://github.com/vordgi/nimpl-i18n#configuration`);
+                throw new Error(
+                    `Can't find load method in configuration file - https://github.com/vordgi/nimpl-i18n#configuration`,
+                );
             }
 
             if (!languages) {
-                throw new Error(`Can't find loaderProvider - https://github.com/vordgi/nimpl-i18n#configuration`);
+                throw new Error(
+                    `Can't find languages list in configuration file - https://github.com/vordgi/nimpl-i18n#configuration`,
+                );
             }
 
             return config.default;

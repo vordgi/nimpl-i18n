@@ -1,9 +1,7 @@
-import createServerContext from "next-impl-getters/create-server-context";
-import { type Translates } from "../types";
+import createServerContext from "@nimpl/getters/create-server-context";
 
 type I18nContextType = {
     lang: string;
-    dictionary: Translates;
 } | null;
 
 export const I18nContext = createServerContext<I18nContextType>(null);
