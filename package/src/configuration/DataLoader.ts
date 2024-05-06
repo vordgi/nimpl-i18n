@@ -5,9 +5,9 @@ import { CacheHandler } from "./CacheHandler";
 class DataLoader {
     cache: { [lang: string]: Promise<unknown> | Meta | undefined } = {};
 
-    loadTranslates: Config['load'];
+    loadTranslates: Config["load"];
 
-    revalidate: Config['revalidate'];
+    revalidate: Config["revalidate"];
 
     cacheHandler = new CacheHandler();
 
@@ -33,15 +33,17 @@ class DataLoader {
     }
 
     async actualizeData<T>(lang: string, lastLoadMeta: Meta | undefined): Promise<T | undefined> {
-        const isOutdatedCache = !lastLoadMeta || (
-            this.revalidate !== undefined && this.revalidate !== false && (lastLoadMeta.lastUpdated + (1000 * this.revalidate) < Date.now())
-        );
+        const isOutdatedCache =
+            !lastLoadMeta ||
+            (this.revalidate !== undefined &&
+                this.revalidate !== false &&
+                lastLoadMeta.lastUpdated + 1000 * this.revalidate < Date.now());
 
         if (isOutdatedCache) {
             this.cache[lang] = new Promise<T | undefined>(async (resolve) => {
                 if (this.checkIsActual) {
                     const isActual = await this.callWithRetries(() => this.checkIsActual!(lang, lastLoadMeta));
-        
+
                     if (isActual) {
                         this.prolongCache(lang);
                         resolve(undefined);
@@ -92,7 +94,7 @@ class DataLoader {
             return this.cacheHandler.get(lang);
         }
 
-        throw new Error('Can\'t load data or read from cache');
+        throw new Error("Can't load data or read from cache");
     }
 
     async revalidateTag(lang: string) {
@@ -112,13 +114,13 @@ class DataLoader {
                 return await cb();
             } catch {
                 if (attempts === this.retryAttempts) {
-                    throw new Error('Can\'t load data');
+                    throw new Error("Can't load data");
                 }
 
-                console.warn('Can\'t load data, trying again...');
+                console.warn("Can't load data, trying again...");
                 call();
             }
-        }
+        };
 
         return call();
     }

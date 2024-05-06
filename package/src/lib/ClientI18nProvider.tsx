@@ -1,27 +1,23 @@
-'use client';
+"use client";
 
-import React, { useContext } from 'react';
-import { ClientI18nContext } from './ClientI18nContext';
+import React, { useContext } from "react";
+import { ClientI18nContext } from "./ClientI18nContext";
 
 type ClientI18nProviderProps = {
-  translates: { [key: string]: string };
-  lang: string;
-  children: React.ReactNode;
-  cleanThread?: boolean;
+    translates: { [key: string]: string };
+    lang: string;
+    children: React.ReactNode;
+    cleanThread?: boolean;
 };
 
 const ClientI18nProvider: React.FC<ClientI18nProviderProps> = ({ translates, children, lang, cleanThread }) => {
-  const prevTranslates = useContext(ClientI18nContext);
+    const prevTranslates = useContext(ClientI18nContext);
 
-  if (cleanThread) {
-    Object.assign(translates, prevTranslates?.translates);
-  }
+    if (cleanThread) {
+        Object.assign(translates, prevTranslates?.translates);
+    }
 
-  return (
-    <ClientI18nContext.Provider value={{ lang, translates }}>
-      {children}
-    </ClientI18nContext.Provider>
-  )
-}
+    return <ClientI18nContext.Provider value={{ lang, translates }}>{children}</ClientI18nContext.Provider>;
+};
 
 export default ClientI18nProvider;
