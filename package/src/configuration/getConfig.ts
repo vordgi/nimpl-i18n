@@ -15,28 +15,31 @@ const getConfig = async (): Promise<Config> => {
 
             if (!load) {
                 throw new Error(
-                    `Can't find load method in configuration file - https://github.com/vordgi/nimpl-i18n#configuration`,
+                    `Can't find "load" method in configuration file - https://github.com/vordgi/nimpl-i18n#configuration`,
                 );
             }
 
             if (!languages) {
                 throw new Error(
-                    `Can't find languages list in configuration file - https://github.com/vordgi/nimpl-i18n#configuration`,
+                    `Can't find "languages" list in configuration file - https://github.com/vordgi/nimpl-i18n#configuration`,
                 );
             }
 
             if (!getLanguage) {
                 throw new Error(
-                    `Can't find getLanguage method in configuration file - https://github.com/vordgi/nimpl-i18n#configuration`,
+                    `Can't find "getLanguage" method in configuration file - https://github.com/vordgi/nimpl-i18n#configuration`,
                 );
             }
 
             return config.default;
+        } else {
+            throw new Error(
+                `Can't load config from "${CONFIG_PATH}". Read more - https://github.com/vordgi/nimpl-i18n#configuration`,
+            );
         }
     } catch (err) {
-        console.error(err);
+        throw err;
     }
-    throw new Error("Can't load config - https://github.com/vordgi/nimpl-i18n#configuration");
 };
 
 export default getConfig;
