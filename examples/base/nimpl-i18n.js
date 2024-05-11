@@ -13,8 +13,8 @@ module.exports = {
                 delete memo[language];
                 return data;
             });
-        const terms = await memo[language];
-        return { data: terms };
+        const dictionary = await memo[language];
+        return dictionary;
     },
     getLanguage: async ({ params }) => params.lang || "en",
     languages: ["en", "fr", "de"],

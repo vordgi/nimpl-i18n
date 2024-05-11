@@ -13,8 +13,8 @@ const loadI18nData = async (): Promise<{ dictionary: Translates; language: strin
         );
     }
 
-    const { data } = await config.load(language);
-    return { dictionary: data as Translates, language };
+    const dictionary = await config.load(language);
+    return { dictionary, language };
 };
 
 export default loadI18nData;
