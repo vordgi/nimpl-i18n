@@ -1,28 +1,22 @@
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
 
 export const metadata = {
-  title: 'Next.js @nimpl/i18n Example',
-  description: '',
-}
+    title: "Next.js @nimpl/i18n Example",
+    description: "",
+};
 
-type RootLayoutProps = { children: React.ReactNode; params: { lang: string } }
+type RootLayoutProps = { children: React.ReactNode; params: { lang: string } };
 
 export default function RootLayout({ children, params }: RootLayoutProps) {
-  if (!['en', 'fr', 'de'].includes(params.lang)) return notFound()
+    if (!["en", "fr", "de"].includes(params.lang)) return notFound();
 
-  return (
-    <html lang={params.lang}>
-      <body>
-        {children}
-      </body>
-    </html>
-  )
+    return (
+        <html lang={params.lang}>
+            <body>{children}</body>
+        </html>
+    );
 }
 
 export async function generateStaticParams() {
-  return [
-    { lang: 'en' },
-    { lang: 'fr' },
-    { lang: 'de' },
-  ]
+    return [{ lang: "en" }, { lang: "fr" }, { lang: "de" }];
 }
