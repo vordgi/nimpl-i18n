@@ -1,17 +1,21 @@
-const fs = require('fs/promises')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const fs = require("fs/promises");
+
+const memo = {};
 
 /** @type {import('@nimpl/i18n/configuration/types').Config} */
 module.exports = {
-  load: async (lang) => {
-    const data = await fs.readFile(`./translates/${lang}.json`).then((data) => JSON.parse(data))
-    console.log('load ' + lang);
-    return { data };
-  },
-  /**
-   * In development mode, the data will be updated each 10 seconds to load changes in files,
-   * there is no need to track changes in files during the build and after it.
-   * For other situations, the option can be configured differently
-   */
-  revalidate: process.env.NODE_ENV === 'development' ? 10 : false,
-  languages: ['de', 'fr', 'en'],
-}
+    load: async (language) => {
+        memo[language] ||= fs
+            .readFile(`./translates/${language}.json`)
+            .then((data) => JSON.parse(data))
+            .then((data) => {
+                delete memo[language];
+                return data;
+            });
+        const terms = await memo[language];
+        return { data: terms };
+    },
+    getLanguage: async ({ params }) => params.lang || "en",
+    languages: ["en", "fr", "de"],
+};
