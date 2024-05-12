@@ -3,9 +3,9 @@ import { type I18nOptions } from "./types";
 import { ClientI18nContext } from "./lib/ClientI18nContext";
 import injectQuery from "./lib/injectQuery";
 
-type GetTranslationReturnType = { t: (term: string, opts?: I18nOptions) => string; lang: string };
+type GetTranslationReturnType = { t: (term: string, opts?: I18nOptions) => string; language: string };
 
-const useTranslation = (namespace?: string): GetTranslationReturnType => {
+const useTranslation = ({ namespace }: { namespace?: string } = {}): GetTranslationReturnType => {
     const context = useContext(ClientI18nContext);
 
     if (!context) {
@@ -14,7 +14,7 @@ const useTranslation = (namespace?: string): GetTranslationReturnType => {
         );
     }
 
-    const { lang, translates } = context;
+    const { language, translates } = context;
 
     const t: GetTranslationReturnType["t"] = (term, opts) => {
         let termKey: string;
@@ -39,7 +39,7 @@ const useTranslation = (namespace?: string): GetTranslationReturnType => {
         return translation;
     };
 
-    return { t, lang };
+    return { t, language };
 };
 
 export default useTranslation;

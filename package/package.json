@@ -1,19 +1,16 @@
 {
   "name": "@nimpl/i18n",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "i18n library for working with translations in server and client components",
   "exports": {
     "./ClientTranslation": {
       "default": "./dist/ClientTranslation.js"
     },
-    "./createTranslation": {
-      "default": "./dist/createTranslation.js"
-    },
     "./getTranslation": {
       "default": "./dist/getTranslation.js"
     },
-    "./I18nProvider": {
-      "default": "./dist/I18nProvider.js"
+    "./i18n": {
+      "default": "./dist/i18n.js"
     },
     "./I18nTransmitter": {
       "default": "./dist/I18nTransmitter.js"
@@ -27,8 +24,8 @@
     "./useTranslation": {
       "default": "./dist/useTranslation.js"
     },
-    "./withI18n": {
-      "default": "./dist/withI18n.js"
+    "./clientConfig": {
+      "default": "./dist/clientConfig.js"
     }
   },
   "files": [
@@ -63,6 +60,7 @@
     "@types/node": "16.11.12",
     "@types/object-path": "0.11.4",
     "@types/react": "18.2.43",
+    "@types/webpack": "5.28.5",
     "react": "18.2.0",
     "typescript": "5.3.2"
   },
@@ -70,8 +68,8 @@
     "react": ">= 18.2.0"
   },
   "dependencies": {
+    "@nimpl/getters": "1.3.4",
     "html-entities": "2.4.0",
-    "next-impl-getters": "0.3.1",
     "object-path": "0.11.8"
   }
 }
