@@ -5,7 +5,7 @@ import getTranslation from "./getTranslation";
 
 type ServerTranslationProps = {
     term: string;
-    components?: { [key: string]: JSX.Element };
+    components?: { [key: string]: React.ReactElement };
     query?: I18nOptions["query"];
     removeUnusedQueries?: I18nOptions["removeUnusedQueries"];
     language?: string;
