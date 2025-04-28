@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React from "react";
 
 type TranslationProps = {
     term: string;
     text: string;
-    components?: { [key: string]: JSX.Element };
+    components?: { [key: string]: React.ReactElement };
 };
 
 const Translation = ({ term, text, components }: TranslationProps): React.ReactNode[] => {
-    const parts: JSX.Element[] = text
+    const parts: React.ReactElement[] = text
         .split(/<\/?[a-zA-Z0-9]+>|<[a-zA-Z0-9]+ ?\/>/gm)
         .map((el, i) => <React.Fragment key={`p-${i}`}>{el}</React.Fragment>);
 
@@ -23,7 +25,7 @@ const Translation = ({ term, text, components }: TranslationProps): React.ReactN
                     parts.splice(
                         tagIndex + 1,
                         1,
-                        React.cloneElement(component, { key: `c-${tagIndex}` }, component.props.children),
+                        React.cloneElement(component, { key: `c-${tagIndex}` }, (component.props as any).children),
                     );
                 } else {
                     console.warn(`Unknown component for term "${term}" - ${tagName}`);
@@ -40,14 +42,16 @@ const Translation = ({ term, text, components }: TranslationProps): React.ReactN
                         if (component) {
                             const children = parts
                                 .slice(targetTag.position + 1, tagIndex + 1)
-                                .filter((c) => Boolean(c.props.children));
+                                .filter((c) =>
+                                    Boolean(c && typeof c === "object" && "props" in c && (c.props as any).children),
+                                );
                             parts.splice(
                                 targetTag.position + 1, // parts на 1 больше
                                 tagIndex - targetTag.position,
                                 React.cloneElement(
                                     component,
                                     { key: `${tagIndex}-${targetIndex}` },
-                                    children.length ? children : component.props.children,
+                                    children.length ? children : (component.props as any).children,
                                 ),
                             );
                         } else {
