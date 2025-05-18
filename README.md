@@ -4,7 +4,7 @@
 
 i18n library designed primarily with server components in mind and maximum optimization (due to the transfer of logic to the assembly stage and/or server side).
 
-Visit https://nimpl.tech/i18n to view the full documentation.
+Visit https://nimpl.dev/docs/i18n to view the full documentation.
 
 ## Why one more library?
 

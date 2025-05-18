@@ -7,7 +7,7 @@ import useTranslation from "./useTranslation";
 
 type ClientTranslationProps = {
     term: string;
-    components?: { [key: string]: JSX.Element };
+    components?: { [key: string]: React.ReactElement };
     query?: I18nOptions["query"];
     removeUnusedQueries?: I18nOptions["removeUnusedQueries"];
 };

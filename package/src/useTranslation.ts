@@ -10,7 +10,7 @@ const useTranslation = ({ namespace }: { namespace?: string } = {}): GetTranslat
 
     if (!context) {
         throw new Error(
-            "Please, Init I18nTransmitter for client components - https://nimpl.tech/i18n/usage#client-components",
+            "Please, Init I18nTransmitter for client components - https://nimpl.dev/docs/i18n/usage#client-components",
         );
     }
 
